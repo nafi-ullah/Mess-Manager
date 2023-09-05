@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mess_app/screens/dropdwonTest.dart';
 import 'package:mess_app/screens/homescreen.dart';
 
 void main() {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('Magic App'),
         ),
-        body: Center(child: HomeScreen()),
+        body: MyHomePage(),
       ),
     );
   }

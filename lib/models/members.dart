@@ -4,6 +4,16 @@ enum MealActivity {
   fish,
   star
 }
+List<String> mealCategory = [
+  'off',
+  'chicken',
+  'fish',
+  'star'
+];
+List<String> mealCnt = [
+  '1', '2', '3', '4','5',
+];
+
 
 class Meal{
   const Meal({
