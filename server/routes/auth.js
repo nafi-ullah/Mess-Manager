@@ -2,11 +2,19 @@ const express = require("express");
 
 const authRouter = express.Router();
 
-authRouter.get("/myapi", (req,res)=>{
-    res.json({
-        hi: "This is insane"
-    });
+authRouter.post("/api/signup",(req,res)=>{
+
+
+
 });
+
+authRouter.post("/api/signin",(req,res)=>{
+
+
+
+});
+
+
 
 
 module.exports = authRouter ;
