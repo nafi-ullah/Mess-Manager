@@ -1,5 +1,7 @@
 const express = require("express");
 const Member = require("../models/user");
+const bcryption = require("bcryptjs");
+
 
 const authRouter = express.Router();
 
@@ -12,11 +14,14 @@ authRouter.post("/api/signup", async (req,res)=>{
         if (!name || !email || !password) {
           return res.status(400).json({ error: 'Name, email, and password are required.' });
         }
+
+        const hashPass = await bcryption.hash(password, 8);
+
       
         let member = new Member({  // req body theke ja paisi, ta ei variable gulay save chhilo.
           name,
           email,
-          password,
+          password: hashPass,
           messid
         });
         //variable er data gula ekhn database a save korar palla.
