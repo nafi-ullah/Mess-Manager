@@ -55,7 +55,7 @@ authRouter.post("/api/signin",async (req,res)=>{
             
             if(!memberCredential){
                 return res.status(400)
-                .json({"erro": "This email is not found in database"});
+                .json({error: "This email is not found in database"});
             }
 
             const isPassMatch = await bcryption.compare(password, memberCredential.password);

@@ -12,7 +12,7 @@ class ButtonWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPress,
       style: ElevatedButton.styleFrom(
-        primary: Theme.of(context).secondaryHeaderColor,
+        primary: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(28.0),
         ),
@@ -22,7 +22,7 @@ class ButtonWidget extends StatelessWidget {
         style: GoogleFonts.notoSans(
           fontSize: 25,
           fontWeight: FontWeight.bold,
-          color: Theme.of(context).primaryColor,
+          color: const Color(0xffdddee3),
         ),
       ),
     );

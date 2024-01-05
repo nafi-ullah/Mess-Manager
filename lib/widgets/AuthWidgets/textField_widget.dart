@@ -21,7 +21,7 @@ class InputTxtField extends StatelessWidget {
       obscureText: obscureText,
       style: GoogleFonts.roboto(
         color: const Color(0xff888b91),
-        fontSize: 20,
+        fontSize: 18,
       ),
       decoration: InputDecoration(
         enabledBorder: const UnderlineInputBorder(
@@ -41,7 +41,7 @@ class InputTxtField extends StatelessWidget {
         hintStyle: GoogleFonts.roboto(
           fontWeight: FontWeight.bold,
           color: const Color(0xff888b91),
-          fontSize: 18,
+          fontSize: 14,
         ),
       ),
     );

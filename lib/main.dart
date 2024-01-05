@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/screens/AuthScreens/welcome_screen.dart';
 import 'package:mess_app/screens/dropdwonTest.dart';
 import 'package:mess_app/screens/homescreen.dart';
 
@@ -13,21 +15,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Groceries',
-      theme: ThemeData.dark().copyWith(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 147, 229, 250),
-          brightness: Brightness.dark,
-          surface: const Color.fromARGB(255, 42, 51, 59),
+      title: 'Auth Screen 1',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: kPrimaryColor,
+        scaffoldBackgroundColor: kBackgroundColor,
+          secondaryHeaderColor: const Color(0xFF151a1d),
+        inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.white.withOpacity(.2),
+            ),
+          ),
         ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 50, 58, 60),
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Magic App'),
-        ),
-        body: MyHomePage(),
+        body: WelcomeScreen(),
       ),
     );
   }

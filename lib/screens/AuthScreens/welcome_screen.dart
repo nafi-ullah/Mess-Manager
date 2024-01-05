@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login_signin_form/Screens/login_screen.dart';
-import 'package:login_signin_form/Screens/signup_screen.dart';
-import 'package:login_signin_form/Widgets/button_widget.dart';
+import 'package:mess_app/screens/AuthScreens/login_screen.dart';
+import 'package:mess_app/screens/AuthScreens/signup_screen.dart';
+import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
+
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Center(
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
-                child: Image.asset("assets/image.png"),
+                child: Image.asset("assets/images/image.png"),
               ),
             ),
             Text(

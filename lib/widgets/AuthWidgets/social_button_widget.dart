@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login_signin_form/Widgets/text_widget.dart';
+import 'package:mess_app/widgets/AuthWidgets/text_widget.dart';
+
 
 class SocialButtonWidget extends StatelessWidget {
   final Color bgColor;

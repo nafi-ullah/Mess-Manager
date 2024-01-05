@@ -1,14 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:login_signin_form/Pages/home_page.dart';
-import 'package:login_signin_form/Screens/forget_password_screen.dart';
-import 'package:login_signin_form/Screens/signup_screen.dart';
-import 'package:login_signin_form/Utilities/validator.dart';
-import 'package:login_signin_form/Widgets/button_widget.dart';
 
-import '../Widgets/textField_widget.dart';
-import '../Widgets/text_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:mess_app/screens/AuthScreens/signup_screen.dart';
+import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
+import 'package:mess_app/widgets/AuthWidgets/textField_widget.dart';
+import 'package:mess_app/widgets/AuthWidgets/text_widget.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -29,18 +25,12 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    FirebaseFirestore db = FirebaseFirestore.instance;
+
     final String email = emailController.text;
     final String password = passwordController.text;
     try {
-      final UserCredential userCredential = await auth
-          .signInWithEmailAndPassword(email: email, password: password);
-      await db.collection("Users").doc(userCredential.user!.uid).get();
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: ((context) => const HomePage()),
-      ));
-    } on FirebaseAuthException catch (e) {
+
+    } catch (e) {
       if (emailController.text.isEmpty && passwordController.text.isEmpty) {
         showDialog(
             context: context,
@@ -72,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
               );
             });
       }
-      if (e.code == 'user-not-found') {
+      if (1==1) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,
@@ -83,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         );
-      } else if (e.code == 'wrong-password') {
+      } else{
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,
@@ -110,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Center(
               child: Container(
                 height: MediaQuery.of(context).size.height / 3.5,
-                child: Image.asset("assets/image.png"),
+                child: Image.asset("assets/images/image.png"),
               ),
             ),
             const SizedBox(height: 10),
@@ -122,11 +112,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidget(
-                    title: "Log-in",
-                    txtSize: 30,
-                    txtColor: Theme.of(context).primaryColor,
-                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    TextWidget(
+                      title: "Log-in",
+                      txtSize: 30,
+                      txtColor: Theme.of(context).primaryColor,
+                    ),
+                  ],),
+
                   TextWidget(
                     title: "Email",
                     txtSize: 22,
@@ -135,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   InputTxtField(
                     hintText: "Your Email id",
                     controller: emailController,
-                    validator: emailValidator,
+                    validator: null,
                     obscureText: false,
                   ),
                   TextWidget(
@@ -146,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   InputTxtField(
                     hintText: "Password",
                     controller: passwordController,
-                    validator: passwordValidator,
+                    validator: null,
                     obscureText: true,
                   ),
                   Row(
@@ -154,13 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) =>
-                                  const ForgetPasswordScreen()),
-                            ),
-                          );
+
                         },
                         child: TextWidget(
                           title: "Forget password?",
@@ -189,10 +178,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) => const SignUpScreen()),
-                            ),
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) => const SignUpScreen(),
+                          ),
                           );
                         },
                         child: TextWidget(
@@ -203,50 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  // const SizedBox(height: 15),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     Padding(
-                  //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  //       child: Container(
-                  //         height: 2.0,
-                  //         width: 90.0,
-                  //         color: const Color(0xff999a9e),
-                  //       ),
-                  //     ),
-                  //     TextWidget(
-                  //       title: "Or login with",
-                  //       txtSize: 18,
-                  //       txtColor: const Color(0xff999a9e),
-                  //     ),
-                  //     Padding(
-                  //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  //       child: Container(
-                  //         height: 2.0,
-                  //         width: 90.0,
-                  //         color: const Color(0xff999a9e),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // // const SizedBox(height: 7.0),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     SocialButtonWidget(
-                  //       bgColor: Colors.white,
-                  //       imagePath: 'assets/Gmail.png',
-                  //       onPress: () {},
-                  //     ),
-                  //     const SizedBox(width: 25.0),
-                  //     SocialButtonWidget(
-                  //       bgColor: const Color(0xff1877f2),
-                  //       imagePath: 'assets/facebook.png',
-                  //       onPress: () {},
-                  //     ),
-                  //   ],
-                  // ),
+
                 ],
               ),
             ),
