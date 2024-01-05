@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "869689967447",
+    "firebase_url": "https://realtime-gps-database-default-rtdb.firebaseio.com",
+    "project_id": "realtime-gps-database",
+    "storage_bucket": "realtime-gps-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869689967447:android:2342a6b494e675cbfeb412",
+        "android_client_info": {
+          "package_name": "com.example.mess_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869689967447-kn9jnjf6ijsb26hl01u39mcntfqvpk9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxtqL8FfLLEDJSL3Q8580LXve9exRg-wU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869689967447-kn9jnjf6ijsb26hl01u39mcntfqvpk9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
