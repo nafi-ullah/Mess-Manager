@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mess_app/services/auth_services.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/AuthWidgets/social_button_widget.dart';
 import 'package:mess_app/widgets/AuthWidgets/textField_widget.dart';
@@ -21,9 +22,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController messidController = TextEditingController();
+  final AuthServices authService = AuthServices();
   bool obscureText = true;
   Membership _membership = Membership.manager;
   double texSize = 18;
+  String messId = "noob";
 
   @override
   void dispose() {
@@ -34,9 +37,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
     messidController.dispose();
   }
 
-  void register() async {
+  void register() {
 
+    try{
+         authService.signUpUser(
+          context: context,
+          email: emailController.text,
+          password: passwordController.text,
+          name: nameController.text,
+          messid: _membership == Membership.manager ? messId : messidController.text
+      );
+    }catch(e){
+       print(e);
     }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Image.asset("assets/images/image.png"),
               ),
             ),
-            const SizedBox(height: 10),
+
             Container(
               margin: const EdgeInsets.only(left: 16.0, right: 21.0),
               height: MediaQuery.of(context).size.height / 1.67,
@@ -67,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       TextWidget(
                         title: "Sign-up",
-                        txtSize: 30,
+                        txtSize: 25,
                         txtColor: Theme.of(context).primaryColor,
                       ),
                     ],
@@ -132,6 +148,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onChanged: (Membership? val){
                               setState(() {
                                 _membership = val! ;
+                                messId = "noob";
                               });
 
                             }),
@@ -171,11 +188,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 25,
+                    height: 8,
                   ),
 
                   SizedBox(
-                    height: 60,
+                    height: 40,
                     width: MediaQuery.of(context).size.width,
                     child: ButtonWidget(
                       btnText: "Signup",

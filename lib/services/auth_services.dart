@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/constants/error_handling.dart';
 import 'package:mess_app/models/auth_model.dart';
 
 class AuthServices{
@@ -32,13 +34,13 @@ class AuthServices{
 
 
 
-      // httpErrorHandle(
-      //     response: res,
-      //     context: context,
-      //     onSuccess: (){
-      //       showSnackBar(context, 'Account create! Log in with same email and password');
-      //     }
-      // );
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: (){
+            showSnackBar(context, 'Account created! Log in with same email and password');
+          }
+      );
 
 
     }catch(e){
