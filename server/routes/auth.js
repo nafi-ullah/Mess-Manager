@@ -5,27 +5,33 @@ const authRouter = express.Router();
 
 authRouter.post("/api/signup", async (req,res)=>{
 
-    const { name, email, password, messid } = req.body;
+    try{
+        const { name, email, password, messid } = req.body;
 
-  // Check if all fields are present
-  if (!name || !email || !password) {
-    return res.status(400).json({ error: 'Name, email, and password are required.' });
-  }
+        // Check if all fields are present
+        if (!name || !email || !password) {
+          return res.status(400).json({ error: 'Name, email, and password are required.' });
+        }
+      
+        let member = new Member({  // req body theke ja paisi, ta ei variable gulay save chhilo.
+          name,
+          email,
+          password,
+          messid
+        });
+        //variable er data gula ekhn database a save korar palla.
+         member = await member.save();
+      
+        return res.json(member);
+      
+      
+        return res.status(200).json({ message: 'User created successfully.' });
+      
+    }catch(e){
+        return res.status(500).json({"error": e.message})
+    }
 
-  let member = new Member({  // req body theke ja paisi, ta ei variable gulay save chhilo.
-    name,
-    email,
-    password,
-    messid
-  });
-  //variable er data gula ekhn database a save korar palla.
-   member = await member.save();
-
-   res.json(member);
-
-
-  res.status(200).json({ message: 'User created successfully.' });
-
+   
 
 });
 
