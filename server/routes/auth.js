@@ -18,6 +18,10 @@ authRouter.post("/api/signup", async (req,res)=>{
 
         const hashPass = await bcryption.hash(password, 8);
 
+        if(messid == "noob"){
+            
+        }
+
       
         let member = new Member({  // req body theke ja paisi, ta ei variable gulay save chhilo.
           name,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mess_app/router.dart';
+import 'package:mess_app/screens/AuthScreens/login_screen.dart';
 import 'package:mess_app/services/auth_services.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/AuthWidgets/social_button_widget.dart';
@@ -50,6 +52,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }catch(e){
        print(e);
     }
+    Navigator.pushAndRemoveUntil(
+        context,
+        generateRoute(
+            const RouteSettings(name: LoginScreen.routeName)
+        ),
+        //MaterialPageRoute(builder: (context) => HomeScreen()), same as above
+            (route) => false
+    );
 
   }
 
@@ -106,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     txtColor: const Color(0xffdddee3),
                   ),
                   InputTxtField(
-                    hintText: "Your Email id",
+                    hintText: "Your Email Address",
                     controller: emailController,
                     validator: null,
                     obscureText: false,

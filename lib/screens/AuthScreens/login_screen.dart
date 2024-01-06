@@ -7,8 +7,10 @@ import 'package:mess_app/widgets/AuthWidgets/text_widget.dart';
 
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
 
+  static const String routeName = '/login-screen';
+
+  const LoginScreen({Key? key}) : super(key: key);
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -24,68 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
   }
 
-  void login() async {
+  void login() {
 
-    final String email = emailController.text;
-    final String password = passwordController.text;
-    try {
-
-    } catch (e) {
-      if (emailController.text.isEmpty && passwordController.text.isEmpty) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                title: TextWidget(
-                  title: "Error",
-                  txtSize: 25.0,
-                  txtColor: Colors.white,
-                ),
-                content: TextWidget(
-                  title: "Please fill the fields",
-                  txtSize: 20.0,
-                  txtColor: Colors.white,
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: TextWidget(
-                      title: "Ok",
-                      txtSize: 18.0,
-                      txtColor: Colors.blue,
-                    ),
-                  ),
-                ],
-              );
-            });
-      }
-      if (1==1) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.redAccent,
-            content: TextWidget(
-              title: "No User Found for that Email",
-              txtSize: 18.0,
-              txtColor: Theme.of(context).primaryColor,
-            ),
-          ),
-        );
-      } else{
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.redAccent,
-            content: TextWidget(
-              title: "Wrong Password Provided by User",
-              txtSize: 18.0,
-              txtColor: Theme.of(context).primaryColor,
-            ),
-          ),
-        );
-      }
-    }
   }
 
   @override
@@ -128,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     txtColor: const Color(0xffdddee3),
                   ),
                   InputTxtField(
-                    hintText: "Your Email id",
+                    hintText: "Your Email Address",
                     controller: emailController,
                     validator: null,
                     obscureText: false,
