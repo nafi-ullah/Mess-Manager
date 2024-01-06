@@ -4,6 +4,7 @@ import 'package:mess_app/screens/AuthScreens/signup_screen.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/AuthWidgets/textField_widget.dart';
 import 'package:mess_app/widgets/AuthWidgets/text_widget.dart';
+import 'package:mess_app/services/auth_services.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final AuthServices authService = AuthServices();
 
   @override
   void dispose() {
@@ -27,6 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() {
+    authService.signInUser(
+        context: context,
+        email: emailController.text,
+        password: passwordController.text);
 
   }
 

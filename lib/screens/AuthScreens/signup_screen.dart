@@ -54,14 +54,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             showSnackBar(context, e.toString());
 
     }
-    // Navigator.pushAndRemoveUntil(
-    //     context,
-    //     generateRoute(
-    //         const RouteSettings(name: LoginScreen.routeName)
-    //     ),
-    //     //MaterialPageRoute(builder: (context) => HomeScreen()), same as above
-    //         (route) => false
-    // );
+    Navigator.pushAndRemoveUntil(
+        context,
+        generateRoute(
+            const RouteSettings(name: LoginScreen.routeName)
+        ),
+        //MaterialPageRoute(builder: (context) => HomeScreen()), same as above
+            (route) => false
+    );
 
   }
 

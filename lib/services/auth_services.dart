@@ -7,6 +7,7 @@ import 'package:mess_app/constants/error_handling.dart';
 import 'package:mess_app/models/auth_model.dart';
 import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/router.dart';
+import 'package:mess_app/screens/dropdwonTest.dart';
 import 'package:mess_app/screens/homescreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,6 +38,7 @@ class AuthServices{
 
           }
       );
+      print("Sign up info");
       print(res.body);
 
 
@@ -54,7 +56,7 @@ class AuthServices{
       print(e.toString());
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-                content: Text(e.toString() )));
+                content: Text("Try again with right information" )));
 
 
     }
@@ -79,6 +81,8 @@ class AuthServices{
           }
       );
 
+      //print(res.body);
+
 
 //      print(res.body);
       httpErrorHandle(
@@ -89,13 +93,20 @@ class AuthServices{
             // log in er por token store kore rakhbo jeno barbar log in krte na hoy
 
             SharedPreferences prefs = await SharedPreferences.getInstance();
-
             Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-            await prefs.setString('x-auth-token', jsonDecode(res.body)['token']); //shared preference a jst token ta thakbe
+            await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+
+
+
+            final user = Provider.of<UserProvider>(context, listen: false).user;
+
+            print(user.toJson());
+
+            //shared preference a jst token ta thakbe
             Navigator.pushAndRemoveUntil(
                 context,
                 generateRoute(
-                    RouteSettings(name: HomeScreen.routeName)
+                    RouteSettings(name: MyHomePage.routeName)
                 ),
                 //MaterialPageRoute(builder: (context) => HomeScreen()), same as above
                     (route) => false);

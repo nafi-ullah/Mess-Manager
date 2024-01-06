@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/screens/AuthScreens/welcome_screen.dart';
 import 'package:mess_app/screens/dropdwonTest.dart';
 import 'package:mess_app/screens/homescreen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context)=> UserProvider())
+  ],
+
+
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
