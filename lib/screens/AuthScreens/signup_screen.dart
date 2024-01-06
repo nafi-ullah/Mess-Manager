@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mess_app/constants/error_handling.dart';
 import 'package:mess_app/router.dart';
 import 'package:mess_app/screens/AuthScreens/login_screen.dart';
 import 'package:mess_app/services/auth_services.dart';
@@ -50,16 +51,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
           messid: _membership == Membership.manager ? messId : messidController.text
       );
     }catch(e){
-       print(e);
+            showSnackBar(context, e.toString());
+
     }
-    Navigator.pushAndRemoveUntil(
-        context,
-        generateRoute(
-            const RouteSettings(name: LoginScreen.routeName)
-        ),
-        //MaterialPageRoute(builder: (context) => HomeScreen()), same as above
-            (route) => false
-    );
+    // Navigator.pushAndRemoveUntil(
+    //     context,
+    //     generateRoute(
+    //         const RouteSettings(name: LoginScreen.routeName)
+    //     ),
+    //     //MaterialPageRoute(builder: (context) => HomeScreen()), same as above
+    //         (route) => false
+    // );
 
   }
 
