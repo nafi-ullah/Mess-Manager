@@ -1,4 +1,6 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/dummydata/memberdata.dart';
 import 'package:mess_app/models/members.dart';
 import 'package:mess_app/widgets/EveryoneMeal.dart';
@@ -13,6 +15,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  int _page = 2;
+  List<Widget> pages = [
+
+    const Center(child: Text("Month List"),),
+    const Center(child: Text("Bazar"),),
+    const Center(child: Text("Feed"),),
+    const Center(child: Text("Message"),),
+    const Center(child: Text("Account"),),
+  ];
+
 
   // Initial Selected Value
   String dropdownvalue = 'off';
@@ -36,134 +49,57 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      appBar:  PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              color: Colors.black,
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              EveryOneMeal(),
-              Row(
-                children: [
-                  Text('Lunch:'),
-                  SizedBox(width: 20,),
-                  DropdownButton(
-      
-                    // Initial Value
-                    value: dropdownvalue,
-      
-                    // Down Arrow Icon
-                    icon: const Icon(Icons.keyboard_arrow_down),
-      
-                    // Array list of items
-                    items: mealCategory.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    // After selecting the desired option,it will
-                    // change button value to selected value
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                  ),
-                  Spacer(),
-                  SizedBox(width: 10,),
-                  Text('Quantity:'),
-                  SizedBox(width: 10,),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: DropdownButton(
-      
-                      // Initial Value
-                      value: mealCvalue,
-      
-                      // Down Arrow Icon
-                      icon: const Icon(Icons.keyboard_arrow_down),
-      
-                      // Array list of items
-                      items: mealCnt.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          mealCvalue = newValue!;
-                        });
-                      },
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text("Mess Manager")
+              ),
+              Container(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: const Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 15),
+                      child: Icon(Icons.notifications_outlined),
                     ),
-                  ),
-      
-                ],
-              ),
-               Row(
-                children: [
-                  const Text('Comment'),
-                  const SizedBox(width: 8,),
-                  SizedBox(
-                    width: 200,
-                    child: TextField(
-                      controller: _msgController,
-                      //keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        //prefixText: '\$ ',
-                        label: Text('About your meal'),
-                      ),
+                    Icon(
+                      Icons.search,
                     ),
-                  ),
-      
-                ],
-              ),
-              const SizedBox(height: 8.0,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(onPressed: (){
-      
-                    print(_msgController.text);
-                    print(mealCvalue);
-                    print(dropdownvalue);
-                    _msgController.clear();
-                  },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                      ),
-                      child: const Text('Update Meal',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      )),
-                ],
-              ),
-              Text('Messages:'),
-              SizedBox(
-                //flex:2,
-                height: 80,
-                child: ListView.builder(
-                  //scrollDirection: Axis.horizontal,
-                  itemCount: membersInfo.length,
-                  //itemExtent: itemWidth,
-                  itemBuilder: (ctx, index)=> Text(
-                    membersInfo[index].personalMsg,
-                  ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 50,),
-              Text("Your total chicken count this month: "),
-              Text("Your total Fish count this month: "),
-              Text("Your total Star count this month: "),
+              )
             ],
           ),
         ),
       ),
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: kBackgroundColor,
+          color: Colors.black,
+          index: 2,
+          items: <Widget>[
+            Icon(Icons.list_alt, size: 30, color: kPrimaryColor,),
+            Icon(Icons.shopping_cart_outlined, size: 30, color: kPrimaryColor,),
+            Icon(Icons.home, size: 30, color: kPrimaryColor,),
+            Icon(Icons.message_outlined, size: 30, color: kPrimaryColor,),
+            Icon(Icons.account_circle_outlined, size: 30, color: kPrimaryColor,),
+          ],
+          onTap: (index) {
+            setState(() {
+              _page = index;
+            });
+          },
+        ),
+      body: pages[_page],
     );
   }
 }
