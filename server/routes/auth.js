@@ -2,6 +2,8 @@ const express = require("express");
 const Member = require("../models/user");
 const bcryption = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const randomingMessId = require('../generator');
+
 
 
 const authRouter = express.Router();
@@ -18,17 +20,14 @@ authRouter.post("/api/signup", async (req,res)=>{
 
         const hashPass = await bcryption.hash(password, 8);
 
-        if(messid == "noob"){
-            
-        }
-
-      
         let member = new Member({  // req body theke ja paisi, ta ei variable gulay save chhilo.
-          name,
-          email,
-          password: hashPass,
-          messid
-        });
+            name,
+            email,
+            password: hashPass,
+            messid: messid == "noob" ? randomingMessId(6) : messid
+          });
+
+        
         //variable er data gula ekhn database a save korar palla.
          member = await member.save();
       
