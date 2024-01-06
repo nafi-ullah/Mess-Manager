@@ -42,6 +42,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               width: 350,
               height: 50,
               child: ButtonWidget(
+                textSize: 20,
                   btnText: "login",
                   onPress: () {
                     Navigator.push(
@@ -56,6 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               width: 350,
               height: 50,
               child: ButtonWidget(
+                textSize: 20,
                   btnText: "signup",
                   onPress: () {
                     Navigator.push(

@@ -207,6 +207,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 40,
                     width: MediaQuery.of(context).size.width,
                     child: ButtonWidget(
+                      textSize: 20,
                       btnText: "Signup",
                       onPress: register,
                     ),

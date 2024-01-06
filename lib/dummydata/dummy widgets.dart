@@ -4,16 +4,16 @@ import 'package:mess_app/dummydata/memberdata.dart';
 import 'package:mess_app/models/members.dart';
 import 'package:mess_app/widgets/EveryoneMeal.dart';
 
-class MyHomePage extends StatefulWidget {
+class DummyHomePage extends StatefulWidget {
 
   static const String routeName = '/home-page';
-  const MyHomePage({Key? key}) : super(key: key);
+  const DummyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _DummyHomePageState createState() => _DummyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _DummyHomePageState extends State<DummyHomePage> {
 
   // Initial Selected Value
   String dropdownvalue = 'off';

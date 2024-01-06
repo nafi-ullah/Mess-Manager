@@ -111,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 60,
                     width: MediaQuery.of(context).size.width,
                     child: ButtonWidget(
+                      textSize: 20,
                       btnText: "Login",
                       onPress: login,
                     ),

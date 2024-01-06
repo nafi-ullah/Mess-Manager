@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/dummydata/memberdata.dart';
 import 'package:mess_app/models/members.dart';
+import 'package:mess_app/screens/feedScreen.dart';
 import 'package:mess_app/widgets/EveryoneMeal.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     const Center(child: Text("Month List"),),
     const Center(child: Text("Bazar"),),
-    const Center(child: Text("Feed"),),
+    const Feed(),
     const Center(child: Text("Message"),),
     const Center(child: Text("Account"),),
   ];

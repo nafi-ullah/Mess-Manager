@@ -5,11 +5,17 @@ class ButtonWidget extends StatelessWidget {
   final String btnText;
   final VoidCallback onPress;
 
-  ButtonWidget({required this.btnText, required this.onPress});
+  ButtonWidget({
+    required this.textSize,
+    required this.btnText,
+    required this.onPress});
+
+  double textSize;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+
       onPressed: onPress,
       style: ElevatedButton.styleFrom(
         primary: Theme.of(context).primaryColor,
@@ -20,7 +26,7 @@ class ButtonWidget extends StatelessWidget {
       child: Text(
         btnText.toUpperCase(),
         style: GoogleFonts.notoSans(
-          fontSize: 25,
+          fontSize: textSize,
           fontWeight: FontWeight.bold,
           color: const Color(0xffdddee3),
         ),
