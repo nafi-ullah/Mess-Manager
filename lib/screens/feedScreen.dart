@@ -63,7 +63,20 @@ class _FeedState extends State<Feed> {
         SizedBox(
           height: 15,
         ),
-        MealType(meal: mealTime,),
+        SizedBox(
+            height: 40,
+            width: 200,
+            child: ButtonWidget(textSize: 15,
+                btnText: "Wanna Update", onPress:(){
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context){
+                        return MealType(meal: mealTime,);
+                      }
+                  );
+                })
+        ),
+
 
 
 

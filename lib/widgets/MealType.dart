@@ -20,6 +20,9 @@ class _MealTypeState extends State<MealType> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(
+          height: 20,
+    ),
         Container(
          //
           decoration: BoxDecoration(
