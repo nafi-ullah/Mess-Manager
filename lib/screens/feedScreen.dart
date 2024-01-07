@@ -71,7 +71,7 @@ class _FeedState extends State<Feed> {
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context){
-                        return MealType(meal: mealTime,);
+                        return MealType(context: context, meal: mealTime,);
                       }
                   );
                 })

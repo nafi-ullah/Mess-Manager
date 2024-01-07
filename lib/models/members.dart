@@ -4,12 +4,20 @@ enum MealActivity {
   fish,
   star
 }
+
+enum mealMenu {
+  Off,
+  Chicken,
+  Fish,
+  Rice
+}
 List<String> mealCategory = [
   'off',
   'chicken',
   'fish',
   'star'
 ];
+
 List<String> mealCnt = [
   '1', '2', '3', '4','5',
 ];

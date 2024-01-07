@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mess_app/models/members.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/counter.dart';
 
 class MealType extends StatefulWidget {
-   MealType({super.key, required this.meal});
+   MealType({super.key,
+     required this.context,
+     required this.meal});
 
+   BuildContext context;
   String meal;
 
   @override
@@ -14,15 +18,50 @@ class MealType extends StatefulWidget {
 }
 
 class _MealTypeState extends State<MealType> {
-  List<bool> isSelected = [true, false, false, false];
+  List<bool> isSelected = [false, false, false, false];
+  List<mealMenu> whichMeal=[
+
+  ];
+  TextEditingController commentController = TextEditingController();
+
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    commentController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+
+    //     SizedBox(
+    //       height: 25,
+    // ),
         SizedBox(
-          height: 20,
-    ),
+          width: 250,
+          child: TextField(
+            controller: commentController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
+                borderSide: BorderSide( // <--- Add this line
+                  color: Colors.blue, // Choose the border color
+                  width: 3.0, // Choose the border width
+                  style: BorderStyle.solid, // Choose the border style
+                ),
+              ),
+              hintText: 'Enter text',
+              labelText: 'Comment',
+            ),
+          ),
+        ),
+            SizedBox(
+              height: 20,
+        ),
         Container(
          //
           decoration: BoxDecoration(
@@ -67,7 +106,7 @@ class _MealTypeState extends State<MealType> {
           ),
         ),
         SizedBox(
-          height: 15,
+          height: 25,
         ),
         Counter(),
         SizedBox(
@@ -82,6 +121,26 @@ class _MealTypeState extends State<MealType> {
 
                 })
         ),
+
+        SizedBox(height: 15,),
+        SizedBox(
+            height: 30,
+            width: 200,
+            child:  ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(28.0),
+                ),
+              ),
+             onPressed: () {
+             Navigator.pop(widget.context); // Close the bottom sheet on button press
+          },
+                  child: Text('Cancel', style: TextStyle(
+                    color: Colors.black54
+                  ),),
+           ),
+                )
       ],
     );
   }
