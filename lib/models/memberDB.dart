@@ -27,7 +27,7 @@ class MembersMeal{
 
   final String userId;
   final String memberName;
-  final mealMenu myMealActivity;
+  final MealMenu myMealActivity;
   final int mealCount;
   final MealTime mealTime;
   final DateTime date;

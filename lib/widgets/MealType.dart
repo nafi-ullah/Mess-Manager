@@ -19,7 +19,7 @@ class MealType extends StatefulWidget {
 }
 
 class _MealTypeState extends State<MealType> {
-  List<bool> isSelected = [false, false, false, false];
+  List<bool> isSelected = [true, false, false, false];
   List<MealMenu> whichMeal=[
       MealMenu.Off,
       MealMenu.Chicken,
@@ -37,15 +37,24 @@ class _MealTypeState extends State<MealType> {
    //DateTime date= DateTime(2023);
    String personalMsg= "";
 
-
-
-
-
   @override
   void dispose() {
     super.dispose();
     commentController.dispose();
   }
+
+  void mealUpdate(){
+    print(mealMenu);
+    print(commentController.text);
+    print(Count);
+  }
+  void _updateCounter(int newCounterValue) {
+    setState(() {
+      Count = newCounterValue;
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +116,8 @@ class _MealTypeState extends State<MealType> {
 
                 onPressed: (int index) {
                   setState(() {
-                      mealMenu = whichMeal[index].toString().split('.').last;
-                      
+                     mealMenu = whichMeal[index].toString().split('.').last;
+
                     for (int i = 0; i < isSelected.length; i++) {
 
                       isSelected[i] = i == index;
@@ -125,7 +134,7 @@ class _MealTypeState extends State<MealType> {
         SizedBox(
           height: 25,
         ),
-        Counter(),
+        Counter(updateCounter: _updateCounter,),
         SizedBox(
           height: 25,
         ),
@@ -133,10 +142,12 @@ class _MealTypeState extends State<MealType> {
             height: 30,
             width: 200,
             child: ButtonWidget(textSize: 15,
-                btnText: "Update", onPress:(){
-                  //mealUpdate();
-
-                })
+                btnText: "Update",
+                onPress: (){
+                  mealUpdate();
+                  Navigator.pop(widget.context);
+                }
+            )
         ),
 
         SizedBox(height: 15,),

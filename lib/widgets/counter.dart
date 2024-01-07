@@ -3,7 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mess_app/constants/constants.dart';
 
 class Counter extends StatefulWidget {
-  const Counter({super.key});
+   Counter({super.key,
+  required this.updateCounter,
+  });
+
+   final Function(int) updateCounter;
 
   @override
   State<Counter> createState() => _CounterState();
@@ -11,18 +15,20 @@ class Counter extends StatefulWidget {
 
 class _CounterState extends State<Counter> {
   List<bool> isSelected = [false, false, false];
-
   int initialValue = 0;
+
 
   void increment() {
     setState(() {
       initialValue = initialValue < 9 ? initialValue + 1 : 9;
+      widget.updateCounter(initialValue);
     });
   }
 
   void decrement() {
     setState(() {
       initialValue = initialValue > 0 ? initialValue - 1 : 0;
+      widget.updateCounter(initialValue);
     });
   }
 
