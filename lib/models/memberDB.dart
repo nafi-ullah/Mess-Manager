@@ -1,37 +1,39 @@
-enum mealMenu {
+enum MealMenu {
   Off,
   Chicken,
   Fish,
   Rice
 }
+enum MealTime{
+  Lunch,
+  Dinner
+}
 
 
-class MealInfo{
-  const MealInfo({
+class MembersMeal{
+  const MembersMeal({
     required this.userId,
     required this.memberName,
-    required this.lunchActivity,
-    required this.lunchCount,
-    required this.dinnerActivity,
-    required this.dinnerCount,
+    required this.myMealActivity,
+    required this.mealCount,
+    required this.mealTime,
     required this.date,
     required this.personalMsg,
 
-    required this.totalChickenCount,
-    required this.totalFishCount,
-    required this.totalStarCount,
+    // required this.totalChickenCount,
+    // required this.totalFishCount,
+    // required this.totalStarCount,
   });
 
   final String userId;
   final String memberName;
-  final mealMenu lunchActivity;
-  final int lunchCount;
-  final mealMenu dinnerActivity;
-  final int dinnerCount;
+  final mealMenu myMealActivity;
+  final int mealCount;
+  final MealTime mealTime;
   final DateTime date;
   final String personalMsg;
-  final int totalChickenCount;
-  final int totalFishCount;
-  final int totalStarCount;
+  // final int totalChickenCount;
+  // final int totalFishCount;
+  // final int totalStarCount;
 
 }

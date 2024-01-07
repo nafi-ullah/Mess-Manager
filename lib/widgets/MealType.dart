@@ -20,13 +20,24 @@ class MealType extends StatefulWidget {
 
 class _MealTypeState extends State<MealType> {
   List<bool> isSelected = [false, false, false, false];
-  List<mealMenu> whichMeal=[
-      mealMenu.Off,
-      mealMenu.Chicken,
-      mealMenu.Fish,
-      mealMenu.Rice
+  List<MealMenu> whichMeal=[
+      MealMenu.Off,
+      MealMenu.Chicken,
+      MealMenu.Fish,
+      MealMenu.Rice
   ];
+
   TextEditingController commentController = TextEditingController();
+
+   String userId = "";
+   String memberName = "";
+   String mealMenu = "";
+   int Count= 0;
+   MealTime mealTime = MealTime.Lunch;
+   //DateTime date= DateTime(2023);
+   String personalMsg= "";
+
+
 
 
 
@@ -96,6 +107,8 @@ class _MealTypeState extends State<MealType> {
 
                 onPressed: (int index) {
                   setState(() {
+                      mealMenu = whichMeal[index].toString().split('.').last;
+                      
                     for (int i = 0; i < isSelected.length; i++) {
 
                       isSelected[i] = i == index;
