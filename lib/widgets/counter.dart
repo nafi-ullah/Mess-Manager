@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/widgets/AuthWidgets/text_widget.dart';
 
 class Counter extends StatefulWidget {
    Counter({super.key,
   required this.updateCounter,
+     required this.isOn,
   });
 
    final Function(int) updateCounter;
+   bool isOn;
 
   @override
   State<Counter> createState() => _CounterState();
@@ -15,26 +18,31 @@ class Counter extends StatefulWidget {
 
 class _CounterState extends State<Counter> {
   List<bool> isSelected = [false, false, false];
-  int initialValue = 0;
+   int initialValue =1 ;
+
+
 
 
   void increment() {
-    setState(() {
-      initialValue = initialValue < 9 ? initialValue + 1 : 9;
-      widget.updateCounter(initialValue);
-    });
+    if(widget.isOn){
+      setState(() {
+        initialValue = initialValue < 9 ? initialValue + 1 : 9;
+        widget.updateCounter(initialValue);
+      });
+    }
+
   }
 
   void decrement() {
     setState(() {
-      initialValue = initialValue > 0 ? initialValue - 1 : 0;
+      initialValue = initialValue > 1 ? initialValue - 1 : 1;
       widget.updateCounter(initialValue);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return widget.isOn == true ? Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
@@ -78,6 +86,6 @@ class _CounterState extends State<Counter> {
           child: Icon(Icons.add),
         ),
       ],
-    );
+    ) : Text("Your meal is off") ;
   }
 }
