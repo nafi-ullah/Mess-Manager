@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mess_app/models/memberDB.dart';
 import 'package:mess_app/models/members.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/counter.dart';
@@ -20,7 +21,10 @@ class MealType extends StatefulWidget {
 class _MealTypeState extends State<MealType> {
   List<bool> isSelected = [false, false, false, false];
   List<mealMenu> whichMeal=[
-
+      mealMenu.Off,
+      mealMenu.Chicken,
+      mealMenu.Fish,
+      mealMenu.Rice
   ];
   TextEditingController commentController = TextEditingController();
 

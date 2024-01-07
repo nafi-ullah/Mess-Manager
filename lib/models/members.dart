@@ -5,12 +5,6 @@ enum MealActivity {
   star
 }
 
-enum mealMenu {
-  Off,
-  Chicken,
-  Fish,
-  Rice
-}
 List<String> mealCategory = [
   'off',
   'chicken',
@@ -51,6 +45,5 @@ class Meal{
     final int totalChickenCount;
     final int totalFishCount;
     final int totalStarCount;
-
 
 }
