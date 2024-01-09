@@ -42,7 +42,7 @@ authRouter.post("/api/signup", async (req,res)=>{
         return res.json(member);
       
       
-        return res.status(200).json({ message: 'User created successfully.' });
+        //return res.status(200).json({ message: 'User created successfully.' });
       
     }catch(e){
         return res.status(500).json({"error": e.message})

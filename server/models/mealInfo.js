@@ -31,16 +31,19 @@ const mealInfoSchema = mealMongo.Schema({
     dinnerMeal: {
         type: String,
         trim: true,
+        default: ''
     },
     dinnerCount: {
         type: Number,
         trim: true,
+        default: 0
     },
     lunchComment: {
         type: String,
     },
     dinnerComment: {
         type: String,
+        default: ''
     }
 
 });
