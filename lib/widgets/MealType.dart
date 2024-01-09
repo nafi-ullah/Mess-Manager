@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mess_app/constants/error_handling.dart';
 import 'package:mess_app/models/memberDB.dart';
 import 'package:mess_app/models/members.dart';
+import 'package:mess_app/services/meal_service.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/counter.dart';
 
@@ -28,10 +30,11 @@ class _MealTypeState extends State<MealType> {
   ];
 
   TextEditingController commentController = TextEditingController();
+  final MealService mealService = MealService();
     bool isOn = true;
    String userId = "";
    String memberName = "";
-   String mealMenu = "";
+   String mealMenu = "Chicken";
    int Count= 0;
   // MealTime mealTime = MealTime.Lunch;
    //DateTime date= DateTime(2023);
@@ -44,10 +47,26 @@ class _MealTypeState extends State<MealType> {
   }
 
   void mealUpdate(){
+    try{
+          mealService.pushMeal(
+          context: context,
+          name: "bishaal",
+          messid: "67872",
+          mealMenu: mealMenu,
+          count: Count,
+          comment: personalMsg
+      );
+    }catch(e){
+        print(e.toString());
+    }
+
+
     print(mealMenu);
     print(commentController.text);
     print(Count);
   }
+
+
   void _updateCounter(int newCounterValue) {
     setState(() {
       Count = newCounterValue;

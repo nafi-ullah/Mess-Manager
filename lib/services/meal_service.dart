@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/constants/error_handling.dart';
 import 'package:mess_app/models/auth_model.dart';
+import 'package:mess_app/models/mealModel.dart';
 import 'package:mess_app/models/memberDB.dart';
 import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/router.dart';
@@ -13,28 +14,24 @@ import 'package:mess_app/screens/homescreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthServices{
+class MealService{
 
   void pushMeal({
     required BuildContext context,
     required String name,
     required String messid,
-    required String lunchMeal,
-    required int lunchCount,
-    required String lunchComment,
+    required String mealMenu,
+    required int count,
+    required String comment,
   }) async {
     try{
-      MembersMeal membersMeal = MembersMeal(
+      MealModel membersMeal = MealModel(
           id: '',
           name: name,
           messid: messid,
-          lunchMeal: lunchMeal,
-          lunchCount: lunchCount,
-          dinnerMeal: '',
-          dinnerCount: 0,
-          lunchComment: lunchComment,
-          dinnerComment: '',
-          date: '');
+          mealMenu: mealMenu,
+          count: count,
+          comment: comment);
 
 
       http.Response res=  await http.post(Uri.parse('$uri/api/mealInfo'),
@@ -52,22 +49,20 @@ class AuthServices{
           response: res,
           context: context,
           onSuccess: (){
-            showSnackBar(context, 'Account created! Log in with same email and password');
+            print("Meal updated");
+              showSnackBar(context, 'Your meal is updated');
           }
       );
 
 
     }catch(e){
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text("Try again with right information" )));
+      //showSnackBar(context, e.toString());
 
 
     }
   }
 
-  
 
 
 }
