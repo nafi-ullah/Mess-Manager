@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/models/auth_model.dart';
 import 'package:mess_app/provider/user_provider.dart';
+import 'package:mess_app/router.dart';
 import 'package:mess_app/screens/AuthScreens/welcome_screen.dart';
 import 'package:mess_app/screens/dropdwonTest.dart';
 import 'package:mess_app/screens/homescreen.dart';
+import 'package:mess_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -11,14 +14,26 @@ void main() {
       ChangeNotifierProvider(create: (context)=> UserProvider())
   ],
 
-
       child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  final AuthServices authService = AuthServices();
+
+  @override
+  void initState() {
+    super.initState();
+    authService.getUserData(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,9 +52,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: Scaffold(
-        body: MyHomePage(),
-      ),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home:  Provider.of<UserProvider>(context).user.token.isNotEmpty ? const MyHomePage() : const WelcomeScreen()
     );
   }
 }

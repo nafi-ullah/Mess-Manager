@@ -3,6 +3,7 @@ const Member = require("../models/user");
 const bcryption = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const randomingMessId = require('../generator');
+const auth = require("../middlewares/auth");
 
 
 
@@ -93,7 +94,7 @@ authRouter.post("/tokenIsValid", async (req, res) => {
       const verified = jwt.verify(token, "passwordKey");
       if (!verified) return res.json(false);
   
-      const user = await User.findById(verified.id);
+      const user = await Member.findById(verified.id);
       if (!user) return res.json(false);
       res.json(true);
     } catch (e) {
@@ -103,7 +104,7 @@ authRouter.post("/tokenIsValid", async (req, res) => {
   
   // get user data
   authRouter.get("/", auth, async (req, res) => {
-    const member = await Member.findById(req.member);
+    const member = await Member.findById(req.user);
     res.json({ ...member._doc, token: req.token });
   });
 
