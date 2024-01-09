@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/MealType.dart';
 import 'package:mess_app/widgets/counter.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 
 class Feed extends StatefulWidget {
@@ -32,15 +34,41 @@ class _FeedState extends State<Feed> {
   bool isDay = true;
   String mealTime = "Lunch";
 
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
+
     return Column(
       children: [
         Row(
+          children: [
+            RichText(
+              text: TextSpan(
+                text: 'Hello, ',
+                style: const TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+                children: [
+                  TextSpan(
+                    text: user.name,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(messName, style: const TextStyle(
-              fontSize: 30
+            Text("Welcome to " + messName, style: const TextStyle(
+              fontSize: 18
             ),)
           ],
         ),

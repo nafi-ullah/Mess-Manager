@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/dummydata/memberdata.dart';
 import 'package:mess_app/models/members.dart';
+import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/screens/feedScreen.dart';
 import 'package:mess_app/widgets/EveryoneMeal.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
 
@@ -49,6 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       appBar:  PreferredSize(
         preferredSize: const Size.fromHeight(50),
