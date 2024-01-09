@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 enum MealMenu {
   Off,
   Chicken,
@@ -12,28 +14,66 @@ enum MealTime{
 
 class MembersMeal{
   const MembersMeal({
-    required this.userId,
-    required this.memberName,
-    required this.myMealActivity,
-    required this.mealCount,
-    required this.mealTime,
+    required this.id,
+    required this.name,
+    required this.messid,
+    required this.lunchMeal,
+    required this.lunchCount,
+    required this.dinnerMeal,
+    required this.dinnerCount,
+    required this.lunchComment,
+    required this.dinnerComment,
     required this.date,
-    required this.personalMsg,
 
     // required this.totalChickenCount,
     // required this.totalFishCount,
     // required this.totalStarCount,
   });
 
-  final String userId;
-  final String memberName;
-  final MealMenu myMealActivity;
-  final int mealCount;
-  final MealTime mealTime;
-  final DateTime date;
-  final String personalMsg;
+  final String id;
+  final String name;
+  final String messid;
+  final String lunchMeal;
+  final int lunchCount;
+  final String dinnerMeal;
+  final int dinnerCount;
+  final String lunchComment;
+  final String dinnerComment;
+  final String date;
   // final int totalChickenCount;
   // final int totalFishCount;
   // final int totalStarCount;
+  factory MembersMeal.fromMap(Map<String,dynamic>map){
+    return MembersMeal(
+      id: map['_id'],
+      name: map['name'],
+      messid: map['messid'],
+      lunchMeal: map['lunchMeal'],
+      lunchCount: map['lunchCount'],
+      dinnerMeal: map['dinnerMeal'],
+      dinnerCount: map['dinnerCount'],
+      lunchComment: map['lunchComment'],
+      dinnerComment: map['dinnerComment'],
+      date: map['date'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'messid': messid,
+      'lunchMeal': lunchMeal,
+      'lunchCount': lunchCount,
+      'dinnerMeal': dinnerMeal,
+      'dinnerCount': dinnerCount,
+      'lunchComment': lunchComment,
+      'dinnerComment': dinnerComment,
+      'date': date,
+    };
+  }
+  String toJson() => json.encode(toMap());
+
+  factory MembersMeal.fromJson(String source) => MembersMeal.fromMap(json.decode(source));
 
 }

@@ -10,25 +10,29 @@ const mealInfoSchema = mealMongo.Schema({
         type: String,
         trim: true,
     },
+    messid: {
+        required: true,
+        type: String,
+        trim: true,
+    },
     date: {
         type: String,
         trim: true,
-        
     },
     lunchMeal: {
         type: String,
         trim: true,
-        
+
     },
     lunchCount: {
         type: Number,
         trim: true,
     },
-    lunchMeal: {
+    dinnerMeal: {
         type: String,
-        trim: true,  
+        trim: true,
     },
-    lunchCount: {
+    dinnerCount: {
         type: Number,
         trim: true,
     },

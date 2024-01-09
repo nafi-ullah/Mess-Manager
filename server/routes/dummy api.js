@@ -66,3 +66,50 @@ job.start();
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
+
+
+// Date stuffs:
+
+// Get the current date
+const currentDate = new Date();
+
+// Extract individual components of the date
+const year = currentDate.getFullYear();
+const month = currentDate.getMonth() + 1; // Note: Months are zero-based, so add 1
+const day = currentDate.getDate();
+
+// Format the date as a string in the "YYYY-MM-DD" format
+const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+
+console.log('Current Date:', formattedDate);
+
+// Later, you can search by date or month name
+const searchDate = '2023-01-15'; // Example date to search
+const searchMonthName = 'January'; // Example month name to search
+
+// Parse the search date
+const parsedSearchDate = new Date(searchDate);
+
+// Check if the search date matches the current date
+if (
+  parsedSearchDate.getFullYear() === year &&
+  parsedSearchDate.getMonth() === currentDate.getMonth() &&
+  parsedSearchDate.getDate() === day
+) {
+  console.log('Match found for the search date:', searchDate);
+} else {
+  console.log('No match found for the search date:', searchDate);
+}
+
+// Check if the current month matches the search month name
+const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+const searchMonthIndex = monthNames.indexOf(searchMonthName);
+if (searchMonthIndex === currentDate.getMonth()) {
+  console.log('Match found for the search month:', searchMonthName);
+} else {
+  console.log('No match found for the search month:', searchMonthName);
+}
