@@ -18,17 +18,17 @@ class MealService{
 
   void pushMeal({
     required BuildContext context,
-    required String name,
-    required String messid,
     required String mealMenu,
     required int count,
     required String comment,
   }) async {
     try{
+      final user = Provider.of<UserProvider>(context, listen: false).user;
+
       MealModel membersMeal = MealModel(
           id: '',
-          name: name,
-          messid: messid,
+          name: user.name,
+          messid: user.messid,
           mealMenu: mealMenu,
           count: count,
           comment: comment);

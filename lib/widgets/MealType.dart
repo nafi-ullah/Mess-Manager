@@ -4,9 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mess_app/constants/error_handling.dart';
 import 'package:mess_app/models/memberDB.dart';
 import 'package:mess_app/models/members.dart';
+import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/services/meal_service.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/counter.dart';
+import 'package:provider/provider.dart';
 
 class MealType extends StatefulWidget {
    MealType({super.key,
@@ -21,6 +23,7 @@ class MealType extends StatefulWidget {
 }
 
 class _MealTypeState extends State<MealType> {
+
   List<bool> isSelected = [false, true, false, false];
   List<MealMenu> whichMeal=[
       MealMenu.Off,
@@ -34,6 +37,7 @@ class _MealTypeState extends State<MealType> {
     bool isOn = true;
    String userId = "";
    String memberName = "";
+   String messid = "";
    String mealMenu = "Chicken";
    int Count= 0;
   // MealTime mealTime = MealTime.Lunch;
@@ -50,11 +54,9 @@ class _MealTypeState extends State<MealType> {
     try{
           mealService.pushMeal(
           context: context,
-          name: "bishaal",
-          messid: "67872",
           mealMenu: mealMenu,
           count: Count,
-          comment: personalMsg
+          comment: commentController.text
       );
     }catch(e){
         print(e.toString());
@@ -77,6 +79,8 @@ class _MealTypeState extends State<MealType> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
