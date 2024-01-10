@@ -35,28 +35,28 @@ const job = new cron.CronJob('0 0 * * *', () => {
   // See https://crontab.guru/ for more details
 
   // TODO: Add your logic to get the specific data from the get api
-  // For example, you can use axios to make a GET request
-  // axios.get('/api/get?data=something')
-  //   .then(response => {
-  //     // Get the data from the response
-  //     const data = response.data.data;
+ // For example, you can use axios to make a GET request
+  axios.get('/api/get?data=something')
+    .then(response => {
+      // Get the data from the response
+      const data = response.data.data;
 
-  //     // TODO: Add your logic to post the data to the post api
-  //     // For example, you can use axios to make a POST request
-  //     axios.post('/api/post', { data })
-  //       .then(response => {
-  //         // Handle the response
-  //         console.log(response.data.message);
-  //       })
-  //       .catch(error => {
-  //         // Handle the error
-  //         console.error(error);
-  //       });
-  //   })
-  //   .catch(error => {
-  //     // Handle the error
-  //     console.error(error);
-  //   });
+      // TODO: Add your logic to post the data to the post api
+      // For example, you can use axios to make a POST request
+      axios.post('/api/post', { data })
+        .then(response => {
+          // Handle the response
+          console.log(response.data.message);
+        })
+        .catch(error => {
+          // Handle the error
+          console.error(error);
+        });
+    })
+    .catch(error => {
+      // Handle the error
+      console.error(error);
+    });
 });
 
 // Start the cron job

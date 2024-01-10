@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(authRouter);
 app.use(mealRouter);
 
+
+
 mydatabase.connect(DB).then(()=>{
     console.log("Daatabase Connected successfully");
 }).catch((e)=>{
