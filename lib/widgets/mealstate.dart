@@ -18,7 +18,7 @@ class MealState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  String mealName = mealActivity.toString().split('.').last;
+  //String mealName = mealActivity.toString().split('.').last;
 
     return Column(
       children: [
@@ -36,7 +36,7 @@ class MealState extends StatelessWidget {
       ),
         ),
         Text(userName),
-        Text(mealName),
+        Text(mealActivity),
         Text('Count: $mealCount'),
 
     ],

@@ -4,6 +4,7 @@ import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/services/meal_service.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/MealType.dart';
+import 'package:mess_app/widgets/loader.dart';
 import 'package:mess_app/widgets/mealstate.dart';
 import 'package:provider/provider.dart';
 
@@ -21,12 +22,12 @@ class _FeedState extends State<Feed> {
   String messName = "Danger Zone";
   bool isDay = true;
   String mealTime = "Lunch";
-  List<MembersMeal>? meals;
+  List<MembersMeal> meals = [];
   final MealService mealService = MealService();
 
   fetchAllMeals() async {
     meals = await mealService.fetchAllMeals(context);
-    print(meals?[0].name);
+    print(meals[0].name);
    // print("haiyoooooooooooooooooooooooooooooooooooooooooo");
     setState(() {
 
@@ -44,6 +45,7 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     Widget content = ListView.builder(
+        scrollDirection: Axis.horizontal,
         itemCount: meals!.length,
         itemBuilder: (ctx, index) => MealState(
             userName: meals![index].name,
@@ -89,11 +91,11 @@ class _FeedState extends State<Feed> {
         SizedBox(
           height: 10,
         ),
-        Container(
-          width: 300,
-          height: 120,
-          color: Colors.white54,
-        ),
+        meals == null ? SizedBox(
+            height: 200,
+            child: Loader()) : SizedBox(
+            height: 200,
+            child: content),
         SizedBox(
           height: 12,
         ),
@@ -118,9 +120,6 @@ class _FeedState extends State<Feed> {
                   );
                 })
         ),
-
-
-
 
       ],
     );
