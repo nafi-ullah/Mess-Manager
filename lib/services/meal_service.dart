@@ -64,12 +64,12 @@ class MealService{
   }
 // fetch products
   Future<List<MembersMeal>> fetchAllMeals(BuildContext context) async {
-    final userProvider = Provider.of<UserProvider>(context).user;
-
+    final userProvider = Provider.of<UserProvider>(context, listen: false).user;
+    String passMessId = "67872";
     List<MembersMeal> mealsList = [];
     try {
       http.Response res =
-      await http.get(Uri.parse('$uri/admin/get-products?messid=${userProvider.messid}'),
+      await http.get(Uri.parse('$uri/api/get-meals?messid=${passMessId}'),
 
           headers: {
         'Content-Type': 'application/json; charset=UTF-8',
