@@ -63,15 +63,13 @@ class MealService{
     }
   }
 // fetch products
-  Future<List<MembersMeal>> fetchAllProducts(BuildContext context) async {
+  Future<List<MembersMeal>> fetchAllMeals(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context).user;
-    final Map<String, dynamic> requestBody = {
-      'messid': userProvider.messid,
-    };
+
     List<MembersMeal> mealsList = [];
     try {
       http.Response res =
-      await http.get(Uri.parse('$uri/admin/get-products'),
+      await http.get(Uri.parse('$uri/admin/get-products?messid=${userProvider.messid}'),
 
           headers: {
         'Content-Type': 'application/json; charset=UTF-8',
