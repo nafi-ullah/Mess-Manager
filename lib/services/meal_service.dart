@@ -65,7 +65,7 @@ class MealService{
 // fetch products
   Future<List<MembersMeal>> fetchAllMeals(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
-    String passMessId = "67872";
+    String passMessId = userProvider.messid;
     List<MembersMeal> mealsList = [];
     try {
       http.Response res =

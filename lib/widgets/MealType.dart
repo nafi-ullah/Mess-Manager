@@ -13,10 +13,13 @@ import 'package:provider/provider.dart';
 class MealType extends StatefulWidget {
    MealType({super.key,
      required this.context,
-     required this.meal});
+     required this.meal,
+      required this.fethAllMeals
+   });
 
    BuildContext context;
   String meal;
+   final Function() fethAllMeals;
 
   @override
   State<MealType> createState() => _MealTypeState();
@@ -50,7 +53,7 @@ class _MealTypeState extends State<MealType> {
     commentController.dispose();
   }
 
-  void mealUpdate(){
+  void mealUpdate() async {
     try{
           mealService.pushMeal(
           context: context,
@@ -61,7 +64,7 @@ class _MealTypeState extends State<MealType> {
     }catch(e){
         print(e.toString());
     }
-
+    await widget.fethAllMeals();
 
     print(mealMenu);
     print(commentController.text);
@@ -173,7 +176,10 @@ class _MealTypeState extends State<MealType> {
             child: ButtonWidget(textSize: 15,
                 btnText: "Update",
                 onPress: (){
-                  mealUpdate();
+              setState(() {
+                mealUpdate();
+              });
+
                   Navigator.pop(widget.context);
                 }
             )

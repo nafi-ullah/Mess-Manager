@@ -93,7 +93,7 @@ class _FeedState extends State<Feed> {
         ),
         meals == null ? SizedBox(
             height: 200,
-            child: Loader()) : SizedBox(
+            child: Text("No Data available")) : SizedBox(
             height: 200,
             child: content),
         SizedBox(
@@ -115,7 +115,9 @@ class _FeedState extends State<Feed> {
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context){
-                        return MealType(context: context, meal: mealTime,);
+                        return MealType(context: context, meal: mealTime,
+                        fethAllMeals: fetchAllMeals,
+                        );
                       }
                   );
                 })
