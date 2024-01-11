@@ -36,7 +36,12 @@ const memberSchema = mymongo.Schema({
         required: true,
         type: String,
         trim: true,
-    }
+    },
+    messname: {
+        type: String,
+        trim: true,
+        default: ''
+    },
 
 });
 

@@ -9,6 +9,7 @@ class UserProvider extends ChangeNotifier{
       email: '',
       password: '',
       messid: '',
+      messname: '',
       token: ''
   );
 

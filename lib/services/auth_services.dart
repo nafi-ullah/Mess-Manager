@@ -28,6 +28,7 @@ class AuthServices{
           email: email,
           password: password,
           messid: messid,
+          messname: '',
           token: ''
       );
 
