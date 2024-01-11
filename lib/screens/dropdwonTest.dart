@@ -67,8 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
+                height: 40,
                 alignment: Alignment.topLeft,
-                child: Text("Mess Manager")
+                child: Image.asset("assets/images/managerlogo.png")
               ),
               Container(
                 padding: const EdgeInsets.only(left: 15, right: 15),

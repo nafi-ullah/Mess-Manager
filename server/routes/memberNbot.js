@@ -43,8 +43,9 @@ mealRouter.post("/api/mealInfo",async (req,res)=>{
 
 mealRouter.get("/api/get-meals", async (req, res) => {
     try {
-        console.log(formattedDate);
-        const { messid } = req.body;
+        
+        const messid = req.query.messid;
+        console.log(messid);
       const meals = await MealInfo.find({messid: messid, date:formattedDate}); // jodi search functionality add korte hoy tobe ei find er moddhe search er character recieve korbe
       res.json(meals);
     } catch (e) {

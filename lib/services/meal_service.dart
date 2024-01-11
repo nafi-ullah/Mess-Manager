@@ -62,7 +62,45 @@ class MealService{
 
     }
   }
+// fetch products
+  Future<List<MembersMeal>> fetchAllProducts(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context).user;
+    final Map<String, dynamic> requestBody = {
+      'messid': userProvider.messid,
+    };
+    List<MembersMeal> mealsList = [];
+    try {
+      http.Response res =
+      await http.get(Uri.parse('$uri/admin/get-products'),
 
+          headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        //'x-auth-token': userProvider.user.token,
+      },
+
+
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            mealsList.add(
+              MembersMeal.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return mealsList;
+  }
 
 
 }
