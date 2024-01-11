@@ -3,7 +3,10 @@ import 'package:mess_app/dummydata/memberdata.dart';
 import 'package:mess_app/widgets/mealstate.dart';
 
 class EveryOneMeal extends StatelessWidget {
-  const EveryOneMeal({super.key});
+  const EveryOneMeal({
+
+    super.key});
+
 
   @override
   Widget build(BuildContext context) {

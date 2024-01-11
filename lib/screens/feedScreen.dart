@@ -4,6 +4,7 @@ import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/services/meal_service.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/MealType.dart';
+import 'package:mess_app/widgets/mealstate.dart';
 import 'package:provider/provider.dart';
 
 
@@ -26,19 +27,31 @@ class _FeedState extends State<Feed> {
   fetchAllMeals() async {
     meals = await mealService.fetchAllMeals(context);
     print(meals?[0].name);
-    print("haiyoooooooooooooooooooooooooooooooooooooooooo");
-    setState(() {});
+   // print("haiyoooooooooooooooooooooooooooooooooooooooooo");
+    setState(() {
+
+    });
   }
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    //fetchAllMeals();
+    fetchAllMeals();
   }
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
+    Widget content = ListView.builder(
+        itemCount: meals!.length,
+        itemBuilder: (ctx, index) => MealState(
+            userName: meals![index].name,
+            mealActivity: meals![index].lunchMeal,
+            mealCount: meals![index].lunchCount
+        )
+
+    );
 
     return Column(
       children: [
@@ -105,15 +118,7 @@ class _FeedState extends State<Feed> {
                   );
                 })
         ),
-        SizedBox(
-            height: 40,
-            width: 200,
-            child: ButtonWidget(textSize: 15,
-                btnText: "Wanna Update", onPress:(){
-                  fetchAllMeals();
-                }
-                )
-        ),
+
 
 
 
