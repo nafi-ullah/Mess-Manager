@@ -27,7 +27,7 @@ class _FeedState extends State<Feed> {
 
   fetchAllMeals() async {
     meals = await mealService.fetchAllMeals(context);
-    print(meals[0].name);
+   // print(meals[0].name);
    // print("haiyoooooooooooooooooooooooooooooooooooooooooo");
     setState(() {
 

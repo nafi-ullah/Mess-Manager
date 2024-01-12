@@ -2,7 +2,7 @@ const express = require("express");
 const Member = require("../models/user");
 const bcryption = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const randomingMessId = require('../generator');
+const { generateString, getTime } = require('../generator');
 const auth = require("../middlewares/auth");
 
 
@@ -20,6 +20,8 @@ authRouter.post("/api/signup", async (req,res)=>{
         }
 
         const hashPass = await bcryption.hash(password, 8);
+        console.log(getTime());
+        console.log(generateString(6));
 
         if(messid != "noob"){
             const memberCredential = await Member.findOne({ messid });
@@ -33,7 +35,7 @@ authRouter.post("/api/signup", async (req,res)=>{
             name,
             email,
             password: hashPass,
-            messid: messid == "noob" ? randomingMessId(6) : messid
+            messid: messid == "noob" ? generateString(6) : messid
           });
 
         
