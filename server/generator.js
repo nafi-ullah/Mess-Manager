@@ -14,7 +14,7 @@ function generateString(length) {
   return result;
 }
 
-function getTime() {
+function getTime(timelen) {
   const date = new Date();
   const offset = 6; 
   const localDate = new Date(date.getTime());
@@ -22,7 +22,17 @@ function getTime() {
   const minutes = localDate.getMinutes();
   const seconds = localDate.getSeconds();
   const currentTime = `${hours}:${minutes}:${seconds}`;
-  return currentTime;
+  const timeInHours = `${hours}`;
+  const timeInMins = `${hours}:${minutes}`;
+
+  if(timelen == 'hour'){
+    return hours;
+  }
+  else if(timelen == 'mins'){
+        return minutes;
+  }
+   return currentTime;
+  //return timeInHours;
 }
 
 module.exports = { generateString, getTime };

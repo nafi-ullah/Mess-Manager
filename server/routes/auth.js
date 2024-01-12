@@ -8,6 +8,13 @@ const auth = require("../middlewares/auth");
 
 
 const authRouter = express.Router();
+console.log(getTime('hour'));
+console.log(getTime('mins'));
+console.log(getTime('nothing'));
+
+ if(getTime('hour') > 21){
+    console.log(" post data");
+ }
 
 authRouter.post("/api/signup", async (req,res)=>{
 
@@ -20,7 +27,7 @@ authRouter.post("/api/signup", async (req,res)=>{
         }
 
         const hashPass = await bcryption.hash(password, 8);
-        console.log(getTime());
+        
         console.log(generateString(6));
 
         if(messid != "noob"){
