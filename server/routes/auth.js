@@ -30,8 +30,6 @@ authRouter.post("/api/signup", async (req, res) => {
 
     const hashPass = await bcryption.hash(password, 8);
 
-    console.log(generateString(6));
-
     if (messid != "noob") {
       const memberCredential = await Member.findOne({ messid });
       if (!memberCredential) {

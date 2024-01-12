@@ -3,6 +3,7 @@ const authRouter = require("./routes/auth");
 const mydatabase = require("mongoose");
 const mealRouter = require("./routes/memberNbot");
 const postRouter = require("./routes/postMeal");
+const schedule = require('node-schedule');
 
 const PORT = 3000;
 const DB = "mongodb+srv://managernafi:dmc54321@cluster0.7dvhcpm.mongodb.net/?retryWrites=true&w=majority";
@@ -14,7 +15,9 @@ const app = express();
 app.use(express.json());
 app.use(authRouter);
 app.use(mealRouter);
-// app.use(postRouter);
+
+
+
 
 
 
