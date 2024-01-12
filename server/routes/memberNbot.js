@@ -70,6 +70,7 @@ mealRouter.get("/api/get-meals", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+//------------------------------------------------------------------------
 // Auto meal update in a time
 mealRouter.post("/api/scheduled-meal", async (req, res) => {
   try {
@@ -103,7 +104,7 @@ const pushJob = schedule.scheduleJob("* 21 51 * * *", async () => {
 schedule.scheduleJob("push-job", "* 12 22 * * *", async () => {
   console.log("Good job dude");
   const todaysMeal = await MealInfo.find({ date: formattedDate });
-  console.log(todaysMeal);
+ // console.log(todaysMeal);
   // post the data again with a loop.
   for (const user of todaysMeal) {
     let pushMeal = new MealInfo({
@@ -117,7 +118,7 @@ schedule.scheduleJob("push-job", "* 12 22 * * *", async () => {
       lunchComment: "",
       dinnerComment: "",
     });
-      console.log("DOneeeeeeeeee");
+     // console.log("DOneeeeeeeeee");
 
     pushMeal = await pushMeal.save();
   }
