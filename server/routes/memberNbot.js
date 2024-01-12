@@ -11,10 +11,36 @@ const currentDate = new Date();
 
     const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
+mealRouter.post("/api/sign-meal",async (req,res)=>{
+    
+      try{
+          // ekhane name messID mealMenu mealCount recieve korbo jst,
+          // pore seta MealInfo er sathe time onujayi align kore nibo.
+          const { name, messid } = req.body;
+  
+          let pushMeal = new MealInfo({
+              name,
+              messid,
+              lunchMeal: "Chicken",
+              lunchCount: 1,
+              lunchComment: "",
+              date: formattedDate
+  
+          });
+  
+          pushMeal = await pushMeal.save();
+          return res.json(pushMeal);
+  
+  
+      }catch(e){
+          return res.status(500).json({"error": e.message})
+  
+      }
+  
+  });
+
 mealRouter.post("/api/mealInfo",async (req,res)=>{
     
-    
-
     try{
         // ekhane name messID mealMenu mealCount recieve korbo jst,
         // pore seta MealInfo er sathe time onujayi align kore nibo.
@@ -39,7 +65,7 @@ mealRouter.post("/api/mealInfo",async (req,res)=>{
 
     }
 
-})
+});
 
 mealRouter.get("/api/get-meals", async (req, res) => {
     try {
