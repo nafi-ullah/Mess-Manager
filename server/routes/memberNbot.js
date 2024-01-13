@@ -25,7 +25,7 @@ const formattedDate = format(currentDate, 'yyyy-MM-dd');
 // const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
 //   day < 10 ? "0" + day : day
 // }`;
-
+//--------------- whenever user sign up, a default meal data will update----
 mealRouter.post("/api/sign-meal", async (req, res) => {
   try {
     // ekhane name messID mealMenu mealCount recieve korbo jst,
@@ -38,6 +38,8 @@ mealRouter.post("/api/sign-meal", async (req, res) => {
       lunchMeal: "Chicken",
       lunchCount: 1,
       lunchComment: "",
+      dinnerMeal: "Chicken",
+      dinnerCount: 1,
       date: formattedDate,
     });
 
@@ -47,6 +49,7 @@ mealRouter.post("/api/sign-meal", async (req, res) => {
     return res.status(500).json({ error: e.message });
   }
 });
+//--------------- dummy api--------------------------------
 
 mealRouter.post("/api/mealInfo", async (req, res) => {
   try {
@@ -69,7 +72,56 @@ mealRouter.post("/api/mealInfo", async (req, res) => {
     return res.status(500).json({ error: e.message });
   }
 });
+//--------------- meal update whenver client want--------------
+mealRouter.patch("/api/updateInfo", async (req, res) => {
+  try {
+    // ekhane name messID mealMenu mealCount recieve korbo jst,
+    // pore seta MealInfo er sathe time onujayi align kore nibo.
+    const { name, messid, mealMenu, count, comment } = req.body;
+    let searchDate = formattedDate;
+    const thisTime = getTime('hour');
+    const lunchBody = new MealInfo({
+               
+      lunchMeal: mealMenu,
+      lunchCount: count,
+      lunchComment: comment
+  });
 
+
+    const memberId = await MealInfo.findOne({ name: name,
+       messid: messid,
+       date: formattedDate
+      },); 
+
+      if (!memberId) {
+        return res.status(404).json({ error: 'Member not found for the specified date' });
+      }
+
+      
+
+
+    const dinnerBody = new MealInfo({
+               
+      dinnerMeal: mealMenu,
+      dinnerCount: count,
+      dinnerCount: comment
+  });
+  memberId.lunchMeal = mealMenu;
+  memberId.lunchCount = count;
+  memberId.lunchComment = comment;
+
+        const updatedMember = await memberId.save();
+
+    return res.json(updatedMember);
+      
+
+    
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+//-----------------get all meal data---------------------
 mealRouter.get("/api/get-meals", async (req, res) => {
   try {
     const messid = req.query.messid;
@@ -82,7 +134,7 @@ mealRouter.get("/api/get-meals", async (req, res) => {
   }
 });
 //------------------------------------------------------------------------
-// Auto meal update in a time
+// Auto meal post api in a time
 mealRouter.post("/api/scheduled-meal", async (req, res) => {
   try {
     // ekhane name messID mealMenu mealCount recieve korbo jst,
@@ -104,14 +156,9 @@ mealRouter.post("/api/scheduled-meal", async (req, res) => {
     return res.status(500).json({ error: e.message });
   }
 });
-//console.log(getTime('hour'));
-const pushJob = schedule.scheduleJob("* 21 51 * * *", async () => {
-  console.log("helloooo");
-  //find the meal data of todays date and store in array
 
-  pushJob.cancel();
-});
 
+//--------------- schedule job for auto post api call-----------------
 schedule.scheduleJob("push-job", "* 12 22 * * *", async () => {
   console.log("Good job dude");
   const todaysMeal = await MealInfo.find({ date: formattedDate });
