@@ -2,18 +2,29 @@ const express = require("express");
 const MealInfo = require("../models/mealInfo");
 const schedule = require("node-schedule");
 const { getTime } = require("../generator");
+const { addDays, format } = require('date-fns');
+
+
+
+// Add one day to get tomorrow's date
+
 
 const mealRouter = express.Router();
 
 const currentDate = new Date();
+const tomorrow = addDays(currentDate, 1);
+const formattedTomorrow = format(tomorrow, 'yyyy-MM-dd');
+const formattedDate = format(currentDate, 'yyyy-MM-dd');
+// console.log(formattedTomorrow);
+// console.log(formattedDate);
 
-const year = currentDate.getFullYear();
-const month = currentDate.getMonth() + 1; // Note: Months are zero-based, so add 1
-const day = currentDate.getDate();
+// const year = currentDate.getFullYear();
+// const month = currentDate.getMonth() + 1; // Note: Months are zero-based, so add 1
+// const day = currentDate.getDate();
 
-const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
-  day < 10 ? "0" + day : day
-}`;
+// const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
+//   day < 10 ? "0" + day : day
+// }`;
 
 mealRouter.post("/api/sign-meal", async (req, res) => {
   try {
@@ -110,7 +121,7 @@ schedule.scheduleJob("push-job", "* 12 22 * * *", async () => {
     let pushMeal = new MealInfo({
       name: user.name,
       messid: user.messid,
-      date: formattedDate, // updateeee
+      date: formattedTomorrow, // updateeee
       lunchMeal: user.lunchMeal,
       lunchCount: user.lunchCount,
       dinnerMeal: user.dinnerMeal,
