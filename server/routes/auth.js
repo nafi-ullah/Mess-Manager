@@ -19,6 +19,7 @@ const authRouter = express.Router();
 authRouter.post("/api/signup", async (req, res) => {
   const generatedMessId = generateString(6);
   const { name, email, password, messid } = req.body;
+  console.log(req.body);
 
   try {
     // Check if all fields are present

@@ -93,7 +93,7 @@ class _FeedState extends State<Feed> {
         ),
         meals == null ? SizedBox(
             height: 200,
-            child: Text("No Data available")) : SizedBox(
+            child: Loader()) : SizedBox(
             height: 200,
             child: content),
         SizedBox(

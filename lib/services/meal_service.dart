@@ -34,7 +34,7 @@ class MealService{
           comment: comment);
 
 
-      http.Response res=  await http.post(Uri.parse('$uri/api/mealInfo'),
+      http.Response res=  await http.patch(Uri.parse('$uri/api/updateInfo'),
           body: membersMeal.toJson(),
           headers: <String, String>{
             'Content-Type' : 'application/json; charset=UTF-8',
