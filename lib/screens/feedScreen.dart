@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 
 class Feed extends StatefulWidget {
+  static const String routeName = '/feed';
   const Feed({super.key});
 
   @override
@@ -45,6 +46,17 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     Widget content = ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: meals!.length,
+        itemBuilder: (ctx, index) => MealState(
+            userName: meals![index].name,
+            mealActivity: meals![index].lunchMeal,
+            mealCount: meals![index].lunchCount
+        )
+
+    );
+
+    Widget comments = ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: meals!.length,
         itemBuilder: (ctx, index) => MealState(
@@ -116,7 +128,6 @@ class _FeedState extends State<Feed> {
                       context: context,
                       builder: (BuildContext context){
                         return MealType(context: context, meal: mealTime,
-                        fethAllMeals: fetchAllMeals,
                         );
                       }
                   );

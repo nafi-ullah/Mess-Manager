@@ -5,23 +5,26 @@ import 'package:mess_app/constants/error_handling.dart';
 import 'package:mess_app/models/memberDB.dart';
 import 'package:mess_app/models/members.dart';
 import 'package:mess_app/provider/user_provider.dart';
+import 'package:mess_app/screens/dropdwonTest.dart';
+import 'package:mess_app/screens/feedScreen.dart';
 import 'package:mess_app/services/meal_service.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/counter.dart';
+import 'package:mess_app/widgets/mealstate.dart';
+import 'package:mess_app/widgets/updatestatus.dart';
 import 'package:provider/provider.dart';
 
 class MealType extends StatefulWidget {
    MealType({super.key,
      required this.context,
      required this.meal,
-      required this.fethAllMeals
+
    });
 
    BuildContext context;
   String meal;
-   final Function() fethAllMeals;
 
-  @override
+   @override
   State<MealType> createState() => _MealTypeState();
 }
 
@@ -64,11 +67,14 @@ class _MealTypeState extends State<MealType> {
     }catch(e){
         print(e.toString());
     }
-    await widget.fethAllMeals();
 
-    print(mealMenu);
-    print(commentController.text);
-    print(Count);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => const UpdateStus(),
+    //   ),
+    // );
+
   }
 
 
@@ -179,8 +185,14 @@ class _MealTypeState extends State<MealType> {
               setState(() {
                 mealUpdate();
               });
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UpdateStus(),
+                ),
+              );
 
-                  Navigator.pop(widget.context);
+                  // Navigator.pop(widget.context);
                 }
             )
         ),

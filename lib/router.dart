@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/screens/AuthScreens/login_screen.dart';
 import 'package:mess_app/screens/dropdwonTest.dart';
+import 'package:mess_app/screens/feedScreen.dart';
 import 'package:mess_app/screens/homescreen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings){
@@ -21,6 +22,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings){
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const MyHomePage(),
+      );
+    case Feed.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const Feed(),
       );
 
 
