@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:mess_app/models/memberDB.dart';
 import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/services/meal_service.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/MealType.dart';
+import 'package:mess_app/widgets/comments.dart';
 import 'package:mess_app/widgets/loader.dart';
 import 'package:mess_app/widgets/mealstate.dart';
 import 'package:provider/provider.dart';
@@ -57,14 +59,20 @@ class _FeedState extends State<Feed> {
     );
 
     Widget comments = ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: meals!.length,
-        itemBuilder: (ctx, index) => MealState(
-            userName: meals![index].name,
-            mealActivity: meals![index].lunchMeal,
-            mealCount: meals![index].lunchCount
-        )
 
+        itemCount: meals!.length,
+        itemBuilder: (ctx, index) {
+          String comment = meals![index].lunchComment.trim();
+          if(comment.isNotEmpty) {
+            return Comments(
+              userName: meals![index].name,
+              comment: meals![index].lunchComment,
+            );
+          }
+          else{
+            return Container();
+          }
+        }
     );
 
     return Column(
@@ -133,6 +141,12 @@ class _FeedState extends State<Feed> {
                   );
                 })
         ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+              height: 100,
+              child: comments),
+        )
 
       ],
     );
