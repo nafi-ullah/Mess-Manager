@@ -103,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
         ),
+      resizeToAvoidBottomInset: false,
       body: pages[_page],
     );
   }

@@ -113,6 +113,7 @@ class _MealTypeState extends State<MealType> {
               hintText: 'Enter text',
               labelText: 'Comment',
             ),
+
           ),
         ),
             SizedBox(
