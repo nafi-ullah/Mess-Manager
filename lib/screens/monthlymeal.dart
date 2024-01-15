@@ -12,14 +12,18 @@ class MonthlyMeal extends StatefulWidget {
 }
 
 class _MonthlyMealState extends State<MonthlyMeal> {
+
   List<MembersMeal> meals = [];
   List<MembersMeal> monthlymeals = [];
   List<String> allMembers = [];
   List<DataRow> filteredRows = [];
+  String selectedValue = "";
+
 
   final MealService mealService = MealService();
   fetchAllMeals() async {
     meals = await mealService.fetchAllMeals(context);
+
     for (var user in meals) {
       allMembers.add(user.name);
     }
@@ -58,21 +62,22 @@ class _MonthlyMealState extends State<MonthlyMeal> {
     super.initState();
     fetchAllMeals();
     fetchMontlyMeals();
+    
   }
 
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context, listen: false).user;
-    String? selectedValue = userProvider.name;
+    final user = Provider.of<UserProvider>(context).user;
+
     return SingleChildScrollView(
       child: Column(
         children: [
           DropdownButton<String>(
-            value: selectedValue,
+            value: selectedValue == "" ? user.name : selectedValue,
             onChanged: (newValue) {
               setState(() {
-                selectedValue = newValue;
+                selectedValue = newValue!;
                 filteredRows = [];
                 getFilteredRows(newValue!);
               });
