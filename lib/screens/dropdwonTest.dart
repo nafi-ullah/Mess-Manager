@@ -6,6 +6,7 @@ import 'package:mess_app/models/members.dart';
 import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/screens/communication/msg_call.dart';
 import 'package:mess_app/screens/feedScreen.dart';
+import 'package:mess_app/screens/monthlymeal.dart';
 import 'package:mess_app/widgets/EveryoneMeal.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _page = 2;
   List<Widget> pages = [
 
-    const Center(child: Text("Month List"),),
+    const MonthlyMeal(),
     const Center(child: Text("Bazar"),),
     const Feed(),
     const Center(child: Text("Communication"),),
