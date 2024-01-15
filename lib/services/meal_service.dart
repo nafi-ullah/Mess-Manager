@@ -95,6 +95,44 @@ class MealService{
         },
       );
     } catch (e) {
+      print(e);
+      //showSnackBar(context, e.toString());
+    }
+    return mealsList;
+  }
+// fetching meal data of all months
+  Future<List<MembersMeal>> fetchMontlyMeals(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false).user;
+    String passMessId = userProvider.messid;
+    List<MembersMeal> mealsList = [];
+    try {
+      http.Response res =
+      await http.get(Uri.parse('$uri/api/month-meals?messid=xr5tL5&monthYear=2024-01'),
+
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          //'x-auth-token': userProvider.user.token,
+        },
+
+
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            mealsList.add(
+              MembersMeal.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
       showSnackBar(context, e.toString());
     }
     return mealsList;

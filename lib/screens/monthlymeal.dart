@@ -13,6 +13,7 @@ class MonthlyMeal extends StatefulWidget {
 
 class _MonthlyMealState extends State<MonthlyMeal> {
   List<MembersMeal> meals = [];
+  List<MembersMeal> monthlymeals = [];
   List<String> allMembers = [];
   List<DataRow> filteredRows = [];
 
@@ -25,11 +26,17 @@ class _MonthlyMealState extends State<MonthlyMeal> {
     setState(() {
     });
   }
+  fetchMontlyMeals() async {
+    monthlymeals = await mealService.fetchMontlyMeals(context);
+
+    setState(() {
+    });
+  }
 
   List<DataRow> getFilteredRows(String userName) {
 
 
-    for (var user in meals) {
+    for (var user in monthlymeals) {
       if (user.name == userName) {
         filteredRows.add(
           DataRow(
@@ -50,6 +57,7 @@ class _MonthlyMealState extends State<MonthlyMeal> {
     // TODO: implement initState
     super.initState();
     fetchAllMeals();
+    fetchMontlyMeals();
   }
 
 
@@ -64,6 +72,7 @@ class _MonthlyMealState extends State<MonthlyMeal> {
           onChanged: (newValue) {
             setState(() {
               selectedValue = newValue;
+              getFilteredRows(newValue!);
             });
           },
           items: allMembers.map((String item) {
