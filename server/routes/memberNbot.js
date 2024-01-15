@@ -160,8 +160,9 @@ mealRouter.post("/api/scheduled-meal", async (req, res) => {
 
 
 //--------------- schedule job for auto post api call-----------------
-schedule.scheduleJob("push-job", "* 12 22 * * *", async () => {
+schedule.scheduleJob("push-job", "* 58 16 * * *", async () => {
   console.log("Good job dude");
+  const dummyDate = "2024-01-14";
   const todaysMeal = await MealInfo.find({ date: formattedDate });
  // console.log(todaysMeal);
   // post the data again with a loop.

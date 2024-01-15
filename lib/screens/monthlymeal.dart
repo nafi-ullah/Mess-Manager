@@ -65,34 +65,37 @@ class _MonthlyMealState extends State<MonthlyMeal> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
     String? selectedValue = userProvider.name;
-    return Column(
-      children: [
-        DropdownButton<String>(
-          value: selectedValue,
-          onChanged: (newValue) {
-            setState(() {
-              selectedValue = newValue;
-              getFilteredRows(newValue!);
-            });
-          },
-          items: allMembers.map((String item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          hint: Text('Select a member'),
-        ),
-        DataTable(
-            columns: [
-              DataColumn(label: Text('Date')),
-              DataColumn(label: Text('Lunch')),
-              DataColumn(label: Text('Dinner')),
-            ],
-
-            rows: filteredRows
-    )
-    ]
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          DropdownButton<String>(
+            value: selectedValue,
+            onChanged: (newValue) {
+              setState(() {
+                selectedValue = newValue;
+                filteredRows = [];
+                getFilteredRows(newValue!);
+              });
+            },
+            items: allMembers.map((String item) {
+              return DropdownMenuItem<String>(
+                value: item,
+                child: Text(item),
+              );
+            }).toList(),
+            hint: Text('Select a member'),
+          ),
+          DataTable(
+              columns: [
+                DataColumn(label: Text('Date')),
+                DataColumn(label: Text('Lunch')),
+                DataColumn(label: Text('Dinner')),
+              ],
+      
+              rows: filteredRows
+      )
+      ]
+      ),
     );
   }
 }
