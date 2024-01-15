@@ -4,6 +4,7 @@ import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/dummydata/memberdata.dart';
 import 'package:mess_app/models/members.dart';
 import 'package:mess_app/provider/user_provider.dart';
+import 'package:mess_app/screens/communication/msg_call.dart';
 import 'package:mess_app/screens/feedScreen.dart';
 import 'package:mess_app/widgets/EveryoneMeal.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const Center(child: Text("Month List"),),
     const Center(child: Text("Bazar"),),
     const Feed(),
-    const Center(child: Text("Message"),),
+    const Communication(),
     const Center(child: Text("Account"),),
   ];
 
