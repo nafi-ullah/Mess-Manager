@@ -26,7 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
     const Center(child: Text("Month List"),),
     const Center(child: Text("Bazar"),),
     const Feed(),
-    const Communication(),
+    const Center(child: Text("Communication"),),
+    //const Communication(),
     const Center(child: Text("Account"),),
   ];
 

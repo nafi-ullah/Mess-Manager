@@ -122,6 +122,7 @@ mealRouter.patch("/api/updateInfo", async (req, res) => {
 });
 
 //-----------------get all meal data---------------------
+// test api:  localhost:3000/api/get-meals?messid=xr5tL5
 mealRouter.get("/api/get-meals", async (req, res) => {
   try {
     const messid = req.query.messid;
@@ -182,6 +183,26 @@ schedule.scheduleJob("push-job", "* 12 22 * * *", async () => {
   }
 
   schedule.cancelJob("push-job");
+});
+
+//---------------------Monthly bazar---------------------------
+// test req: localhost:3000/api/month-meals?messid=xr5tL5&monthYear=2024-01
+
+mealRouter.get("/api/month-meals", async (req, res) => {
+  try {
+    const messid = req.query.messid;
+    const formattedMonthYear = req.query.monthYear;
+    const regexPattern = new RegExp(`^${formattedMonthYear}`);
+
+    const meals = await MealInfo.find({
+      messid: messid,
+      date: { $regex: regexPattern }
+    });
+
+    res.json(meals);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 module.exports = mealRouter;
