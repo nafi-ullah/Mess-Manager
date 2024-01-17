@@ -2,19 +2,16 @@ const express = require("express");
 const MealInfo = require("../models/mealInfo");
 const schedule = require("node-schedule");
 const { getTime } = require("../generator");
-const { addDays, format } = require('date-fns');
-
-
+const { addDays, format } = require("date-fns");
 
 // Add one day to get tomorrow's date
-
 
 const mealRouter = express.Router();
 
 const currentDate = new Date();
 const tomorrow = addDays(currentDate, 1);
-const formattedTomorrow = format(tomorrow, 'yyyy-MM-dd');
-const formattedDate = format(currentDate, 'yyyy-MM-dd');
+const formattedTomorrow = format(tomorrow, "yyyy-MM-dd");
+const formattedDate = format(currentDate, "yyyy-MM-dd");
 // console.log(formattedTomorrow);
 // console.log(formattedDate);
 
@@ -79,43 +76,37 @@ mealRouter.patch("/api/updateInfo", async (req, res) => {
     // pore seta MealInfo er sathe time onujayi align kore nibo.
     const { name, messid, mealMenu, count, comment } = req.body;
     let searchDate = formattedDate;
-    const thisTime = getTime('hour');
+    const thisTime = getTime("hour");
     const lunchBody = new MealInfo({
-               
       lunchMeal: mealMenu,
       lunchCount: count,
-      lunchComment: comment
-  });
+      lunchComment: comment,
+    });
 
+    const memberId = await MealInfo.findOne({
+      name: name,
+      messid: messid,
+      date: formattedDate,
+    });
 
-    const memberId = await MealInfo.findOne({ name: name,
-       messid: messid,
-       date: formattedDate
-      },); 
-
-      if (!memberId) {
-        return res.status(404).json({ error: 'Member not found for the specified date' });
-      }
-
-      
-
+    if (!memberId) {
+      return res
+        .status(404)
+        .json({ error: "Member not found for the specified date" });
+    }
 
     const dinnerBody = new MealInfo({
-               
       dinnerMeal: mealMenu,
       dinnerCount: count,
-      dinnerCount: comment
-  });
-  memberId.lunchMeal = mealMenu;
-  memberId.lunchCount = count;
-  memberId.lunchComment = comment;
+      dinnerCount: comment,
+    });
+    memberId.lunchMeal = mealMenu;
+    memberId.lunchCount = count;
+    memberId.lunchComment = comment;
 
-        const updatedMember = await memberId.save();
+    const updatedMember = await memberId.save();
 
     return res.json(updatedMember);
-      
-
-    
   } catch (e) {
     return res.status(500).json({ error: e.message });
   }
@@ -158,13 +149,12 @@ mealRouter.post("/api/scheduled-meal", async (req, res) => {
   }
 });
 
-
 //--------------- schedule job for auto post api call-----------------
 schedule.scheduleJob("push-job", "* 58 16 * * *", async () => {
   console.log("Good job dude");
   const dummyDate = "2024-01-14";
   const todaysMeal = await MealInfo.find({ date: formattedDate });
- // console.log(todaysMeal);
+  // console.log(todaysMeal);
   // post the data again with a loop.
   for (const user of todaysMeal) {
     let pushMeal = new MealInfo({
@@ -178,7 +168,7 @@ schedule.scheduleJob("push-job", "* 58 16 * * *", async () => {
       lunchComment: "",
       dinnerComment: "",
     });
-     // console.log("DOneeeeeeeeee");
+    // console.log("DOneeeeeeeeee");
 
     pushMeal = await pushMeal.save();
   }
@@ -197,7 +187,7 @@ mealRouter.get("/api/month-meals", async (req, res) => {
 
     const meals = await MealInfo.find({
       messid: messid,
-      date: { $regex: regexPattern }
+      date: { $regex: regexPattern },
     });
 
     res.json(meals);
