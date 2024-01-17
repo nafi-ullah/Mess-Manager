@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class BazarForm extends StatefulWidget {
@@ -11,6 +13,18 @@ class _BazarFormState extends State<BazarForm> {
   List<TextEditingController> listController = [TextEditingController()];
   List<TextEditingController> quantityController = [TextEditingController()];
   List<TextEditingController> costController = [TextEditingController()];
+
+  void SaveData(){
+
+    //show here listController values
+    for (int i = 0; i < listController.length; i++) {
+      print('Item ${i + 1} Name: ${listController[i].text}');
+      print('Item ${i + 1} Quantity: ${quantityController[i].text}');
+      print('Item ${i + 1} Cost: ${costController[i].text}');
+      print('------------------------');
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +58,14 @@ class _BazarFormState extends State<BazarForm> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
-            child: Text(
-              "Date: ",
+            child: Row(
+              children: [
+                Text(
+                  "Date: ",
+                ),
+                Spacer(),
+                ElevatedButton(onPressed: SaveData, child: Text("Save"))
+              ],
             ),
           ),
 
@@ -58,52 +78,109 @@ class _BazarFormState extends State<BazarForm> {
               shrinkWrap: true,
               itemCount: listController.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          height: 60,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF2E384E),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: TextFormField(
-                            controller: listController[index],
-                            autofocus: false,
-                            style: const TextStyle(color: Color(0xFFF8F8FF)),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Item name",
-                              hintStyle: TextStyle(
-                                  color: Color.fromARGB(255, 132, 140, 155)),
+                return Dismissible(
+                  key: ValueKey<TextEditingController>(listController[index] ),
+                  onDismissed: (DismissDirection direction){
+                    setState(() {
+                      listController[index].clear();
+                      listController[index].dispose();
+                      listController.removeAt(index);
+
+                      quantityController[index].clear();
+                      quantityController[index].dispose();
+                      quantityController.removeAt(index);
+
+                      costController[index].clear();
+                      costController[index].dispose();
+                      costController.removeAt(index);
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            height: 60,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF2E384E),
+                              borderRadius: BorderRadius.circular(10),
                             ),
+                            child:  Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Item Name TextField with a size ratio of 5
+                                Expanded(
+                                  flex: 5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: TextField(
+                                      controller: listController[index],
+                                      decoration: InputDecoration(labelText: 'Item Name'),
+                                    ),
+                                  ),
+                                ),
+
+                                // Quantity TextField with a size ratio of 2
+                                Expanded(
+                                  flex: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: TextField(
+                                      controller: quantityController[index],
+                                      decoration: InputDecoration(labelText: 'Qt'),
+                                    ),
+                                  ),
+                                ),
+                                // Cost TextField with a size ratio of 3
+                                Expanded(
+                                  flex: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: TextField(
+                                      controller: costController[index],
+                                      decoration: InputDecoration(labelText: 'Price'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            // child: TextFormField(
+                            //   controller: listController[index],
+                            //   autofocus: false,
+                            //   style: const TextStyle(color: Color(0xFFF8F8FF)),
+                            //   decoration: const InputDecoration(
+                            //     border: InputBorder.none,
+                            //     hintText: "Item name",
+                            //     hintStyle: TextStyle(
+                            //         color: Color.fromARGB(255, 132, 140, 155)),
+                            //   ),
+                            // ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      index != 0
-                          ? GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            listController[index].clear();
-                            listController[index].dispose();
-                            listController.removeAt(index);
-                          });
-                        },
-                        child: const Icon(
-                          Icons.delete,
-                          color: Color(0xFF6B74D6),
-                          size: 35,
+                        const SizedBox(
+                          width: 10,
                         ),
-                      )
-                          : const SizedBox()
-                    ],
+                        // index != 0
+                        //     ? GestureDetector(
+                        //   onTap: (){
+                        //     setState(() {
+                        //       listController[index].clear();
+                        //       listController[index].dispose();
+                        //       listController.removeAt(index);
+                        //     });
+                        //   },
+                        //   child: const Icon(
+                        //     Icons.delete,
+                        //     color: Color(0xFF6B74D6),
+                        //     size: 20,
+                        //   ),
+                        // )
+                        //     : const SizedBox()
+                      ],
+                    ),
                   ),
                 );
               },
@@ -116,6 +193,8 @@ class _BazarFormState extends State<BazarForm> {
             onTap: () {
               setState(() {
                 listController.add(TextEditingController());
+                quantityController.add(TextEditingController());
+                costController.add(TextEditingController());
               });
             },
             child: Center(
