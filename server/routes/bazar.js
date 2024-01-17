@@ -23,7 +23,9 @@ bazarRouter.post("/api/bazarInfo", async (req, res) => {
         quantity,
         date : formattedDate 
       });
-  
+      
+      pushBazar = await pushBazar.save();
+      return res.json(pushBazar);
      
     } catch (e) {
       return res.status(500).json({ error: e.message });

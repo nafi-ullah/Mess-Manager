@@ -21,7 +21,7 @@ const bazarSchema = bazarMongo.Schema({
         type: [String],
     },
     quantity: {
-        type: [Number],
+        type: [String],
     },
     cost: {
         type: [Number],
