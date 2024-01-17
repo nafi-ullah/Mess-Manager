@@ -2,6 +2,7 @@ const express = require("express");
 const BazarInfo = require("../models/bazarModel");
 
 const { format } = require('date-fns');
+const bazarInfo = require("../models/bazarModel");
 
 const bazarRouter = express.Router();
 
@@ -29,6 +30,18 @@ bazarRouter.post("/api/bazarInfo", async (req, res) => {
      
     } catch (e) {
       return res.status(500).json({ error: e.message });
+    }
+  });
+
+  bazarRouter.get("/api/allBazar", async (req, res) => {
+    try {
+      const messid = req.query.messid;
+      //  console.log(messid);
+      const meals = await bazarInfo.find({ messid: messid  }); // jodi search functionality add korte hoy tobe ei find er moddhe search er character recieve korbe
+  
+      res.json(meals);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
   });
 
