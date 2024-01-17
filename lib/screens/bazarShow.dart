@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/widgets/bazarForm.dart';
 
 class BazarShow extends StatefulWidget {
   const BazarShow({super.key});
@@ -9,6 +10,17 @@ class BazarShow extends StatefulWidget {
 }
 
 class _BazarShowState extends State<BazarShow> {
+
+  void _openAddExpenseOverlay() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BazarForm(),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +48,7 @@ class _BazarShowState extends State<BazarShow> {
           ),
         ),
       ),
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Text("History"),
@@ -43,7 +56,7 @@ class _BazarShowState extends State<BazarShow> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: (){},
+          onPressed: _openAddExpenseOverlay,
           elevation: 0.0,
           label: const Text("Add"),
           foregroundColor: Colors.white,
