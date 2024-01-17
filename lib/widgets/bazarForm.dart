@@ -9,6 +9,8 @@ class BazarForm extends StatefulWidget {
 
 class _BazarFormState extends State<BazarForm> {
   List<TextEditingController> listController = [TextEditingController()];
+  List<TextEditingController> quantityController = [TextEditingController()];
+  List<TextEditingController> costController = [TextEditingController()];
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,7 @@ class _BazarFormState extends State<BazarForm> {
                             style: const TextStyle(color: Color(0xFFF8F8FF)),
                             decoration: const InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Input Text Here",
+                              hintText: "Item name",
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(255, 132, 140, 155)),
                             ),
@@ -130,7 +132,7 @@ class _BazarFormState extends State<BazarForm> {
             ),
           ),
           const SizedBox(
-            width: 10,
+            width: 50,
           )
         ],
       ),
