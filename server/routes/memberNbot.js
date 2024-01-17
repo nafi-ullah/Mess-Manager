@@ -176,7 +176,7 @@ schedule.scheduleJob("push-job", "* 58 16 * * *", async () => {
   schedule.cancelJob("push-job");
 });
 
-//---------------------Monthly bazar---------------------------
+//---------------------Monthly Meal Request---------------------------
 // test req: localhost:3000/api/month-meals?messid=xr5tL5&monthYear=2024-01
 
 mealRouter.get("/api/month-meals", async (req, res) => {

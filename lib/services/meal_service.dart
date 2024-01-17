@@ -107,7 +107,7 @@ class MealService{
     List<MembersMeal> mealsList = [];
     try {
       http.Response res =
-      await http.get(Uri.parse('$uri/api/month-meals?messid=xr5tL5&monthYear=2024-01'),
+      await http.get(Uri.parse('$uri/api/month-meals?messid=${passMessId}&monthYear=2024-01'),
 
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
