@@ -27,6 +27,6 @@ const bazarSchema = bazarMongo.Schema({
 
 });
 
-const bazarInfo = bazarMongo.model("MealInformation", bazarSchema);
+const bazarInfo = bazarMongo.model("BazarInfo", bazarSchema);
 
 module.exports = bazarInfo;
