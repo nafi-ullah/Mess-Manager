@@ -71,6 +71,7 @@ class BazarService{
     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
     String passMessId = userProvider.messid;
     List<BazarModel> bazarList = [];
+     List<dynamic> data = [];
     try {
       http.Response res =
       await http.get(Uri.parse('$uri/api/allBazar?messid=${passMessId}'),
@@ -82,27 +83,33 @@ class BazarService{
 
 
       );
+      //print(res.body);
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            bazarList.add(
-              BazarModel.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
-              ),
-            );
-          }
+          // for (int i = 0; i < jsonDecode(res.body).length; i++) {
+          //   bazarList.add(
+          //     BazarModel.fromJson(
+          //       jsonEncode(
+          //         jsonDecode(res.body)[i],
+          //       ),
+          //     ),
+          //   );
+          // }
+           data = jsonDecode(res.body);
+        // data.map((item) => BazarModel.fromJson(item)).toList();
+          print(data.map((item) => BazarModel.fromJson(item)).toList());
+
         },
       );
+     // print(bazarList);
     } catch (e) {
       print(e);
       //showSnackBar(context, e.toString());
     }
-    return bazarList;
+    return data.map((item) => BazarModel.fromJson(item)).toList();
   }
 // fetching meal data of all months
 

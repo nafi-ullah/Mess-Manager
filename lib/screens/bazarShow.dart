@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/models/bazarModel.dart';
 import 'package:mess_app/services/bazar_service.dart';
 import 'package:mess_app/widgets/bazarData.dart';
 import 'package:mess_app/widgets/bazarForm.dart';
+import 'package:mess_app/widgets/loader.dart';
 
 class BazarShow extends StatefulWidget {
   const BazarShow({super.key});
@@ -19,6 +22,7 @@ class _BazarShowState extends State<BazarShow> {
 
   fetchAllBazar() async{
     bazarList = await bazarService.fetchAllBazar(context);
+    print(jsonDecode(bazarList as String));
     setState(() {
 
     });
@@ -43,16 +47,17 @@ class _BazarShowState extends State<BazarShow> {
   @override
   Widget build(BuildContext context) {
 
-    Widget bazars = ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: bazarList!.length,
-        itemBuilder: (ctx, index) => BazarData(
-            bazar: bazarList[index].bazar,
-            quantity: bazarList[index].quantity,
-            cost: bazarList[index].cost,
-        )
-
-    );
+    // Widget bazars = ListView.builder(
+    //     scrollDirection: Axis.horizontal,
+    //     itemCount: bazarList!.length,
+    //     itemBuilder: (ctx, index) => BazarData(
+    //         bazar: bazarList[index].bazar,
+    //         quantity: bazarList[index].quantity,
+    //         cost: bazarList[index].cost,
+    //     )
+    //
+    // );
+    Widget bazars = Container();
 
 
     return Scaffold(
@@ -81,7 +86,7 @@ class _BazarShowState extends State<BazarShow> {
         ),
       ),
       resizeToAvoidBottomInset: false,
-      body: bazars,
+      body:  bazarList.isEmpty ? Loader() : bazars,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: _openAddExpenseOverlay,
           elevation: 0.0,

@@ -41,7 +41,19 @@ class BazarModel{
 
   String toJson() => json.encode(toMap());
 
-  factory BazarModel.fromJson(String source) => BazarModel.fromMap(json.decode(source));
+  factory BazarModel.fromJson(Map<String, dynamic> json) {
+    return BazarModel(
+      name: json['name'],
+      messid: json['messid'],
+      date: json['date'],
+      bazar: List<String>.from(json['bazar']),
+      quantity: List<String>.from(json['quantity']),
+      cost: List<int>.from(json['cost']),
+    );
+  }
+
+
+  //factory BazarModel.fromJson(String source) => BazarModel.fromMap(json.decode(source));
 
 
 }
