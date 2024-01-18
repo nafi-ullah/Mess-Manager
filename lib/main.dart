@@ -4,6 +4,7 @@ import 'package:mess_app/models/auth_model.dart';
 import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/router.dart';
 import 'package:mess_app/screens/AuthScreens/welcome_screen.dart';
+import 'package:mess_app/screens/accountUpdate.dart';
 import 'package:mess_app/screens/bazarShow.dart';
 import 'package:mess_app/screens/dropdwonTest.dart';
 import 'package:mess_app/screens/homescreen.dart';
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: Provider.of<UserProvider>(context, listen: false).user.token.isNotEmpty ? const MyHomePage() : const WelcomeScreen()
+      home: AccountUpdatePage()//Provider.of<UserProvider>(context, listen: false).user.token.isNotEmpty ? const MyHomePage() : const WelcomeScreen()
     );
   }
 }
