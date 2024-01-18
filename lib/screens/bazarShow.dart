@@ -54,7 +54,8 @@ class _BazarShowState extends State<BazarShow> {
   Widget build(BuildContext context) {
 
     Widget bazars = bazarList.isEmpty ? Loader() : ListView.builder(
-
+        reverse: true,
+        padding: EdgeInsets.only(bottom: 70),
         itemCount: bazarList.length,
         itemBuilder: (ctx, index) => BazarData(
             bazar: bazarList[index].bazar,
