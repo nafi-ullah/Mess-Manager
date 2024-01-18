@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:mess_app/screens/bazarShow.dart';
 import 'package:mess_app/services/bazar_service.dart';
 import 'package:intl/intl.dart';
 
@@ -42,17 +43,11 @@ class _BazarFormState extends State<BazarForm> {
         cost: cost
     );
 
-    // for (int i = 0; i < listController.length; i++) {
-    //   print('Item ${i + 1} Name: ${listController[i].text}');
-    //   String test= listController[i].text;
-    //   if (test == ""){
-    //     print("Yess");
-    //   }
-    //   print('Item ${i + 1} Quantity: ${quantityController[i].text}');
-    //   print('Item ${i + 1} Cost: ${costController[i].text}');
-    //   print('------------------------');
-    // }
-
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => BazarShow()),
+          (route) => false, // Set to false to remove all previous pages
+    );
   }
 
   @override

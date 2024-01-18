@@ -5,12 +5,17 @@ import 'package:mess_app/constants/constants.dart';
 
 class BazarData extends StatefulWidget {
    BazarData({super.key,
-  required this.bazar,
+
+     required this.name,
+     required this.date,
+     required this.bazar,
     required this.quantity,
     required this.cost
 
   });
 
+   final String name;
+   final String date;
    final List<String> bazar;
    final List<String> quantity;
    final List<int> cost;
@@ -21,6 +26,7 @@ class BazarData extends StatefulWidget {
 
 class _BazarDataState extends State<BazarData> {
   List<DataRow> filteredRows = [];
+  int TotalCost = 0;
   // List<String> bazarD = [];
   // List<String> quantityD = [];
   // List<int> costD = [];
@@ -28,6 +34,8 @@ class _BazarDataState extends State<BazarData> {
 
   void getFilteredRows() {
     setState(() {
+
+
       for (int i=0; i<widget.bazar.length; i++ ) {
         filteredRows.add(
           DataRow(
@@ -42,7 +50,18 @@ class _BazarDataState extends State<BazarData> {
       }
     });
 
-    print(widget.cost);
+  //  print(widget.cost);
+  }
+
+  void totalCosting(){
+    setState(() {
+      int sum = 0;
+      for (int value in widget.cost) {
+        sum += value;
+      }
+      TotalCost = sum;
+      print(TotalCost);
+    });
   }
 
   @override
@@ -50,13 +69,14 @@ class _BazarDataState extends State<BazarData> {
     // TODO: implement initState
     super.initState();
     getFilteredRows();
+    totalCosting();
   }
 
 
   @override
   Widget build(BuildContext context) {
-    String doneName = "Bipul";
-    String bazarDate = "18-01-2024";
+    //String doneName = "Bipul";
+    //String bazarDate = "18-01-2024";
     String total = "2000";
 
 
@@ -81,14 +101,14 @@ class _BazarDataState extends State<BazarData> {
           Row(
             children: [
               Text(
-                'Done By: ${doneName}',
+                'Done By: ${widget.name}',
                 style: TextStyle(color: Colors.white,
                 fontSize: 15.0
                 ),
               ),
               Spacer(),
               Text(
-                'Date: ${bazarDate}',
+                'Date: ${widget.date}',
                 style: TextStyle(color: Colors.white,
                     fontSize: 15.0
                 ),
@@ -104,7 +124,7 @@ class _BazarDataState extends State<BazarData> {
             ),
           ),
 
-          SizedBox(height: 10.0),
+          SizedBox(height: 4.0),
           DataTable(
               columns: [
                 DataColumn(label: Text('Item ',
@@ -165,7 +185,7 @@ class _BazarDataState extends State<BazarData> {
           Row(
             children: [
               Spacer(),
-              Text("Total: ${total}",
+              Text("Total: ${TotalCost}",
                 style: TextStyle(
                     fontSize: 16.0,
                     color: kPrimaryColor,

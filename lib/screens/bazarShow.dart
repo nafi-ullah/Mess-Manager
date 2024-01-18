@@ -58,6 +58,8 @@ class _BazarShowState extends State<BazarShow> {
         padding: EdgeInsets.only(bottom: 70),
         itemCount: bazarList.length,
         itemBuilder: (ctx, index) => BazarData(
+            name: bazarList[index].name,
+            date: bazarList[index].date,
             bazar: bazarList[index].bazar,
             quantity: bazarList[index].quantity,
             cost: bazarList[index].cost,
