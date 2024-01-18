@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:mess_app/services/bazar_service.dart';
 
 class BazarForm extends StatefulWidget {
   const BazarForm({super.key});
@@ -13,16 +14,43 @@ class _BazarFormState extends State<BazarForm> {
   List<TextEditingController> listController = [TextEditingController()];
   List<TextEditingController> quantityController = [TextEditingController()];
   List<TextEditingController> costController = [TextEditingController()];
+  final BazarService bazarService = BazarService();
 
   void SaveData(){
 
     //show here listController values
-    for (int i = 0; i < listController.length; i++) {
-      print('Item ${i + 1} Name: ${listController[i].text}');
-      print('Item ${i + 1} Quantity: ${quantityController[i].text}');
-      print('Item ${i + 1} Cost: ${costController[i].text}');
-      print('------------------------');
-    }
+    List<String> bazar = List<String>
+        .from(listController.map((controller) => controller.text));
+
+    List<String> quantity = List<String>
+        .from(quantityController.map((controller) => controller.text));
+
+    List<int> cost = List<int>.from(costController.map((controller) {
+      String text = controller.text;
+      // Use int.tryParse to convert text to an integer, handle potential errors
+      return int.tryParse(text) ; // Default to 0 if conversion fails
+    }));
+    print(bazar);
+    print(quantity);
+    print(cost);
+
+    bazarService.pushBazar(
+        context: context,
+        bazar: bazar,
+        quantity: quantity,
+        cost: cost
+    );
+
+    // for (int i = 0; i < listController.length; i++) {
+    //   print('Item ${i + 1} Name: ${listController[i].text}');
+    //   String test= listController[i].text;
+    //   if (test == ""){
+    //     print("Yess");
+    //   }
+    //   print('Item ${i + 1} Quantity: ${quantityController[i].text}');
+    //   print('Item ${i + 1} Cost: ${costController[i].text}');
+    //   print('------------------------');
+    // }
 
   }
 

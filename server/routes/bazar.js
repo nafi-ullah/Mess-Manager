@@ -26,7 +26,9 @@ bazarRouter.post("/api/bazarInfo", async (req, res) => {
       });
       
       pushBazar = await pushBazar.save();
+      console.log(pushBazar);
       return res.json(pushBazar);
+      
      
     } catch (e) {
       return res.status(500).json({ error: e.message });

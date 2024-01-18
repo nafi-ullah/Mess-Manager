@@ -40,7 +40,7 @@ class MealService{
             'Content-Type' : 'application/json; charset=UTF-8',
           }
       );
-      print("Sign up info");
+      //print("Sign up info");
       print(res.body);
 
 
