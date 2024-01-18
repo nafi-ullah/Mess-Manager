@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/models/bazarModel.dart';
+import 'package:mess_app/services/bazar_service.dart';
 import 'package:mess_app/widgets/bazarData.dart';
 import 'package:mess_app/widgets/bazarForm.dart';
 
@@ -11,6 +13,16 @@ class BazarShow extends StatefulWidget {
 }
 
 class _BazarShowState extends State<BazarShow> {
+  List<BazarModel> bazarList = [];
+  final BazarService bazarService = BazarService();
+
+
+  fetchAllBazar() async{
+    bazarList = await bazarService.fetchAllBazar(context);
+    setState(() {
+
+    });
+  }
 
   void _openAddExpenseOverlay() {
     Navigator.push(
@@ -19,6 +31,12 @@ class _BazarShowState extends State<BazarShow> {
         builder: (context) => const BazarForm(),
       ),
     );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchAllBazar();
   }
 
 

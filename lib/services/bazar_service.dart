@@ -67,7 +67,7 @@ class BazarService{
     }
   }
 // fetch products
-  Future<List<BazarModel>> fetchAllMeals(BuildContext context) async {
+  Future<List<BazarModel>> fetchAllBazar(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
     String passMessId = userProvider.messid;
     List<BazarModel> bazarList = [];
