@@ -9,6 +9,29 @@ class BazarData extends StatelessWidget {
     String doneName = "Bipul";
     String bazarDate = "18-01-2024";
     String total = "2000";
+    List<DataRow> filteredRows = [];
+    List<String> bazarD = [];
+    List<String> quantityD = [];
+    List<int> costD = [];
+
+    List<DataRow> getFilteredRows(String userName) {
+      for (int i=0; i<bazarD.length; i++ ) {
+          filteredRows.add(
+            DataRow(
+              cells: [
+                DataCell(Text(bazarD[i])),
+                DataCell(Text(quantityD[i])),
+                DataCell(Text(costD[i].toString())),
+              ],
+            ),
+          );
+
+      }
+
+      return filteredRows;
+    }
+
+
 
     return Container(
       width: double.infinity, // Full width

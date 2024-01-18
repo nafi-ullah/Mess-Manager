@@ -67,43 +67,43 @@ class BazarService{
     }
   }
 // fetch products
-//   Future<List<MembersMeal>> fetchAllMeals(BuildContext context) async {
-//     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
-//     String passMessId = userProvider.messid;
-//     List<MembersMeal> mealsList = [];
-//     try {
-//       http.Response res =
-//       await http.get(Uri.parse('$uri/api/get-meals?messid=${passMessId}'),
-//
-//         headers: {
-//           'Content-Type': 'application/json; charset=UTF-8',
-//           //'x-auth-token': userProvider.user.token,
-//         },
-//
-//
-//       );
-//
-//       httpErrorHandle(
-//         response: res,
-//         context: context,
-//         onSuccess: () {
-//           for (int i = 0; i < jsonDecode(res.body).length; i++) {
-//             mealsList.add(
-//               MembersMeal.fromJson(
-//                 jsonEncode(
-//                   jsonDecode(res.body)[i],
-//                 ),
-//               ),
-//             );
-//           }
-//         },
-//       );
-//     } catch (e) {
-//       print(e);
-//       //showSnackBar(context, e.toString());
-//     }
-//     return mealsList;
-//   }
+  Future<List<BazarModel>> fetchAllMeals(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false).user;
+    String passMessId = userProvider.messid;
+    List<BazarModel> bazarList = [];
+    try {
+      http.Response res =
+      await http.get(Uri.parse('$uri/api/allBazar?messid=${passMessId}'),
+
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          //'x-auth-token': userProvider.user.token,
+        },
+
+
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            bazarList.add(
+              BazarModel.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      print(e);
+      //showSnackBar(context, e.toString());
+    }
+    return bazarList;
+  }
 // fetching meal data of all months
 
 
