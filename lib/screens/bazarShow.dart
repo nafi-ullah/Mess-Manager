@@ -42,6 +42,19 @@ class _BazarShowState extends State<BazarShow> {
 
   @override
   Widget build(BuildContext context) {
+
+    Widget bazars = ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: bazarList!.length,
+        itemBuilder: (ctx, index) => BazarData(
+            bazar: bazarList[index].bazar,
+            quantity: bazarList[index].quantity,
+            cost: bazarList[index].cost,
+        )
+
+    );
+
+
     return Scaffold(
       appBar:  PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -68,13 +81,7 @@ class _BazarShowState extends State<BazarShow> {
         ),
       ),
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-
-            BazarData()
-
-        ],
-      ),
+      body: bazars,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: _openAddExpenseOverlay,
           elevation: 0.0,

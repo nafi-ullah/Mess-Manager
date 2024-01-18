@@ -1,8 +1,19 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 
 class BazarData extends StatelessWidget {
-  const BazarData({super.key});
+   BazarData({super.key,
+  required this.bazar,
+    required this.quantity,
+    required this.cost
+
+  });
+
+   List<String> bazar;
+   List<String> quantity;
+   List<int> cost;
 
   @override
   Widget build(BuildContext context) {
@@ -10,18 +21,18 @@ class BazarData extends StatelessWidget {
     String bazarDate = "18-01-2024";
     String total = "2000";
     List<DataRow> filteredRows = [];
-    List<String> bazarD = [];
-    List<String> quantityD = [];
-    List<int> costD = [];
+    // List<String> bazarD = [];
+    // List<String> quantityD = [];
+    // List<int> costD = [];
 
     List<DataRow> getFilteredRows(String userName) {
-      for (int i=0; i<bazarD.length; i++ ) {
+      for (int i=0; i<bazar.length; i++ ) {
           filteredRows.add(
             DataRow(
               cells: [
-                DataCell(Text(bazarD[i])),
-                DataCell(Text(quantityD[i])),
-                DataCell(Text(costD[i].toString())),
+                DataCell(Text(bazar[i])),
+                DataCell(Text(quantity[i])),
+                DataCell(Text(cost[i].toString())),
               ],
             ),
           );

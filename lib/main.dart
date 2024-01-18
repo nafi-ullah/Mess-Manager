@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: BazarShow() //Provider.of<UserProvider>(context, listen: false).user.token.isNotEmpty ? const MyHomePage() : const WelcomeScreen()
+      home: Provider.of<UserProvider>(context, listen: false).user.token.isNotEmpty ? const MyHomePage() : const WelcomeScreen()
     );
   }
 }
