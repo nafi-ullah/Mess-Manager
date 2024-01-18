@@ -18,11 +18,17 @@ class BazarShow extends StatefulWidget {
 class _BazarShowState extends State<BazarShow> {
   List<BazarModel> bazarList = [];
   final BazarService bazarService = BazarService();
+  List<String> bazar = [];
+  List<String> quantity = [];
+  List<int> cost = [];
 
 
   fetchAllBazar() async{
     bazarList = await bazarService.fetchAllBazar(context);
-    print(bazarList);
+   // print(bazarList);
+    bazar = bazarList[0].bazar ;
+    cost = bazarList[0].cost ;
+   // print(cost);
     setState(() {
 
     });
@@ -47,20 +53,14 @@ class _BazarShowState extends State<BazarShow> {
   @override
   Widget build(BuildContext context) {
 
-    Widget bazars = ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: bazarList!.length,
-        itemBuilder: (ctx, index) => Row(
-          children: [
-            Text(bazarList[index].bazar[0]),
-          ],
-        )
+    Widget bazars = bazarList.isEmpty ? Loader() : ListView.builder(
 
-        //     BazarData(
-        //     bazar: bazarList[index].bazar,
-        //     quantity: bazarList[index].quantity,
-        //     cost: bazarList[index].cost,
-        // )
+        itemCount: bazarList.length,
+        itemBuilder: (ctx, index) => BazarData(
+            bazar: bazarList[index].bazar,
+            quantity: bazarList[index].quantity,
+            cost: bazarList[index].cost,
+        )
 
     );
   //  Widget bazars = Container();
@@ -92,7 +92,7 @@ class _BazarShowState extends State<BazarShow> {
         ),
       ),
       resizeToAvoidBottomInset: false,
-      body:  bazarList.isEmpty ? Loader() : bazars,
+      body:  bazars,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: _openAddExpenseOverlay,
           elevation: 0.0,

@@ -24,30 +24,31 @@ class BazarData extends StatelessWidget {
     // List<String> bazarD = [];
     // List<String> quantityD = [];
     // List<int> costD = [];
+    print(bazar);
 
-    List<DataRow> getFilteredRows(String userName) {
-      for (int i=0; i<bazar.length; i++ ) {
-          filteredRows.add(
-            DataRow(
-              cells: [
-                DataCell(Text(bazar[i])),
-                DataCell(Text(quantity[i])),
-                DataCell(Text(cost[i].toString())),
-              ],
-            ),
-          );
-
-      }
-
-      return filteredRows;
-    }
+    // List<DataRow> getFilteredRows() {
+    //   for (int i=0; i<bazar.length; i++ ) {
+    //       filteredRows.add(
+    //         DataRow(
+    //           cells: [
+    //             DataCell(Text(bazar[i])),
+    //             DataCell(Text(quantity[i])),
+    //             DataCell(Text(cost[i].toString())),
+    //           ],
+    //         ),
+    //       );
+    //
+    //   }
+    //
+    //   return filteredRows;
+    // }
 
 
 
     return Container(
       width: double.infinity, // Full width
       padding: EdgeInsets.all(8.0),
-      margin: EdgeInsets.all(28.0),
+      margin: EdgeInsets.only(top: 28.0, left: 28.0, right: 28.0),
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(12.0), // Rounded corners
