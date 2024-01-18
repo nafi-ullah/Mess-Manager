@@ -100,7 +100,7 @@ class BazarService{
           // }
            data = jsonDecode(res.body);
         // data.map((item) => BazarModel.fromJson(item)).toList();
-          print(data.map((item) => BazarModel.fromJson(item)).toList());
+         // print(data.map((item) => BazarModel.fromJson(item)).toList());
 
         },
       );

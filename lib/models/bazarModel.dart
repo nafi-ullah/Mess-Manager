@@ -16,6 +16,10 @@ class BazarModel{
     required this.quantity,
     required this.cost,
   });
+  @override
+  String toString() {
+    return '{name: $name, messid: $messid, date: $date, bazar: $bazar, quantity: $quantity, cost: $cost}';
+  }
 
 // json serialization (parameter gula select kore bulb icon a click korar por option ashbe)
   Map<String,dynamic> toMap(){

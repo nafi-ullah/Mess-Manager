@@ -22,7 +22,7 @@ class _BazarShowState extends State<BazarShow> {
 
   fetchAllBazar() async{
     bazarList = await bazarService.fetchAllBazar(context);
-    print(jsonDecode(bazarList as String));
+    print(bazarList);
     setState(() {
 
     });
@@ -47,17 +47,23 @@ class _BazarShowState extends State<BazarShow> {
   @override
   Widget build(BuildContext context) {
 
-    // Widget bazars = ListView.builder(
-    //     scrollDirection: Axis.horizontal,
-    //     itemCount: bazarList!.length,
-    //     itemBuilder: (ctx, index) => BazarData(
-    //         bazar: bazarList[index].bazar,
-    //         quantity: bazarList[index].quantity,
-    //         cost: bazarList[index].cost,
-    //     )
-    //
-    // );
-    Widget bazars = Container();
+    Widget bazars = ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: bazarList!.length,
+        itemBuilder: (ctx, index) => Row(
+          children: [
+            Text(bazarList[index].bazar[0]),
+          ],
+        )
+
+        //     BazarData(
+        //     bazar: bazarList[index].bazar,
+        //     quantity: bazarList[index].quantity,
+        //     cost: bazarList[index].cost,
+        // )
+
+    );
+  //  Widget bazars = Container();
 
 
     return Scaffold(
