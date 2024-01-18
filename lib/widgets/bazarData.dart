@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 
-class BazarData extends StatelessWidget {
+class BazarData extends StatefulWidget {
    BazarData({super.key,
   required this.bazar,
     required this.quantity,
@@ -11,37 +11,55 @@ class BazarData extends StatelessWidget {
 
   });
 
-   List<String> bazar;
-   List<String> quantity;
-   List<int> cost;
+   final List<String> bazar;
+   final List<String> quantity;
+   final List<int> cost;
+
+  @override
+  State<BazarData> createState() => _BazarDataState();
+}
+
+class _BazarDataState extends State<BazarData> {
+  List<DataRow> filteredRows = [];
+  // List<String> bazarD = [];
+  // List<String> quantityD = [];
+  // List<int> costD = [];
+
+
+  void getFilteredRows() {
+    setState(() {
+      for (int i=0; i<widget.bazar.length; i++ ) {
+        filteredRows.add(
+          DataRow(
+            cells: [
+              DataCell(Text(widget.bazar[i])),
+              DataCell(Text(widget.quantity[i])),
+              DataCell(Text(widget.cost[i].toString())),
+            ],
+          ),
+        );
+
+      }
+    });
+
+    print(widget.cost);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getFilteredRows();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     String doneName = "Bipul";
     String bazarDate = "18-01-2024";
     String total = "2000";
-    List<DataRow> filteredRows = [];
-    // List<String> bazarD = [];
-    // List<String> quantityD = [];
-    // List<int> costD = [];
-    print(bazar);
 
-    // List<DataRow> getFilteredRows() {
-    //   for (int i=0; i<bazar.length; i++ ) {
-    //       filteredRows.add(
-    //         DataRow(
-    //           cells: [
-    //             DataCell(Text(bazar[i])),
-    //             DataCell(Text(quantity[i])),
-    //             DataCell(Text(cost[i].toString())),
-    //           ],
-    //         ),
-    //       );
-    //
-    //   }
-    //
-    //   return filteredRows;
-    // }
+
 
 
 
@@ -109,29 +127,32 @@ class BazarData extends StatelessWidget {
                 )),
               ],
 
-              rows: [
-                DataRow(
-                  cells: [
-                    DataCell(Text("Alu")),
-                    DataCell(Text("200gm")),
-                    DataCell(Text("500")),
-                  ],
-                ),
-                DataRow(
-                  cells: [
-                    DataCell(Text("Alu")),
-                    DataCell(Text("200gm")),
-                    DataCell(Text("500")),
-                  ],
-                ),
-                DataRow(
-                  cells: [
-                    DataCell(Text("Alu")),
-                    DataCell(Text("200gm")),
-                    DataCell(Text("500")),
-                  ],
-                ),
-              ]
+              rows: filteredRows
+              // [
+              //   DataRow(
+              //     cells: [
+              //       DataCell(Text("Alu")),
+              //       DataCell(Text("200gm")),
+              //       DataCell(Text("500")),
+              //     ],
+              //   ),
+              //   DataRow(
+              //     cells: [
+              //       DataCell(Text("Alu")),
+              //       DataCell(Text("200gm")),
+              //       DataCell(Text("500")),
+              //     ],
+              //   ),
+              //   DataRow(
+              //     cells: [
+              //       DataCell(Text("Alu")),
+              //       DataCell(Text("200gm")),
+              //       DataCell(Text("500")),
+              //     ],
+              //
+              //   ),
+              //
+              // ]
           ),
           Container(
             height: 2.0,
@@ -155,6 +176,7 @@ class BazarData extends StatelessWidget {
                 width: 30.0,
               )
             ],
+
           )
         ],
       ),
