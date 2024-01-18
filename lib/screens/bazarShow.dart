@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/widgets/bazarData.dart';
 import 'package:mess_app/widgets/bazarForm.dart';
 
 class BazarShow extends StatefulWidget {
@@ -51,7 +52,8 @@ class _BazarShowState extends State<BazarShow> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Text("History"),
+
+            BazarData()
 
         ],
       ),

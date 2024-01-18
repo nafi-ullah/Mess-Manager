@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:mess_app/services/bazar_service.dart';
+import 'package:intl/intl.dart';
 
 class BazarForm extends StatefulWidget {
   const BazarForm({super.key});
@@ -56,6 +57,12 @@ class _BazarFormState extends State<BazarForm> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+
+    // Format the date as "dd-Month Name-yyyy"
+    String formattedDate = DateFormat('dd-MMMM-yyyy').format(now);
+
+
     return Scaffold(
       appBar:  PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -91,6 +98,7 @@ class _BazarFormState extends State<BazarForm> {
                 Text(
                   "Date: ",
                 ),
+                Text(formattedDate),
                 Spacer(),
                 ElevatedButton(onPressed: SaveData, child: Text("Save"))
               ],
