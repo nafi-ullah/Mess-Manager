@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mess_app/constants/constants.dart';
 
 class BazarData extends StatelessWidget {
   const BazarData({super.key});
@@ -7,6 +8,7 @@ class BazarData extends StatelessWidget {
   Widget build(BuildContext context) {
     String doneName = "Bipul";
     String bazarDate = "18-01-2024";
+    String total = "2000";
 
     return Container(
       width: double.infinity, // Full width
@@ -27,12 +29,16 @@ class BazarData extends StatelessWidget {
             children: [
               Text(
                 'Done By: ${doneName}',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,
+                fontSize: 15.0
+                ),
               ),
               Spacer(),
               Text(
                 'Date: ${bazarDate}',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,
+                    fontSize: 15.0
+                ),
               ),
             ],
           ),
@@ -46,10 +52,75 @@ class BazarData extends StatelessWidget {
           ),
 
           SizedBox(height: 10.0),
-          Text(
-            'Another Text Widget',
-            style: TextStyle(color: Colors.white),
+          DataTable(
+              columns: [
+                DataColumn(label: Text('Item ',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold
+                ),
+                )),
+                DataColumn(label: Text('Quantity',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold
+                  ),
+                )),
+                DataColumn(label: Text('Price',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold
+                  ),
+                )),
+              ],
+
+              rows: [
+                DataRow(
+                  cells: [
+                    DataCell(Text("Alu")),
+                    DataCell(Text("200gm")),
+                    DataCell(Text("500")),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text("Alu")),
+                    DataCell(Text("200gm")),
+                    DataCell(Text("500")),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text("Alu")),
+                    DataCell(Text("200gm")),
+                    DataCell(Text("500")),
+                  ],
+                ),
+              ]
           ),
+          Container(
+            height: 2.0,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white54,
+
+            ),
+          ),
+          Row(
+            children: [
+              Spacer(),
+              Text("Total: ${total}",
+                style: TextStyle(
+                    fontSize: 16.0,
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              SizedBox(
+                width: 30.0,
+              )
+            ],
+          )
         ],
       ),
     );
