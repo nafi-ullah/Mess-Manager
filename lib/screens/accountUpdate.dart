@@ -85,10 +85,10 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
                          const  SizedBox(height: 20),
-                         InfoBox(title: "Name", data: "John Dae"),
-                         InfoBox(title: "Email", data: "john@gmail.com"),
+                         InfoBox(title: "Name", data: user.name),
+                         InfoBox(title: "Email", data: user.email),
                          InfoBox(title: "Password", data: "* * * * * * * *"),
-                         InfoBox(title: "Mess Id", data: "xyz123"),
+                         InfoBox(title: "Mess Id", data: user.messid),
                          isEditable ? Column(children: [
                            SizedBox(height: 15.0,),
                            Row(children: [
@@ -114,7 +114,7 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
                              height: 1.0,
                              color: Colors.white38,
                            )
-                         ],) :InfoBox(title: "Mess Name", data: "Blue whales")  ,
+                         ],) :InfoBox(title: "Mess Name", data: user.messname)  ,
                         SizedBox(height: 30,),
                          SizedBox(
                            width: 300,
