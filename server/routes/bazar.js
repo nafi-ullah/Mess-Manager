@@ -34,7 +34,8 @@ bazarRouter.post("/api/bazarInfo", async (req, res) => {
       return res.status(500).json({ error: e.message });
     }
   });
-
+// api link:
+// localhost:3000/api/allBazar?messid=xr5tL5
   bazarRouter.get("/api/allBazar", async (req, res) => {
     try {
       const messid = req.query.messid;

@@ -126,4 +126,38 @@ authRouter.get("/", auth, async (req, res) => {
   res.json({ ...member._doc, token: req.token });
 });
 
+//-----------mess name update--------------------
+
+authRouter.patch("/api/updateMessName", async (req, res) => {
+  try {
+    // ekhane name messID mealMenu mealCount recieve korbo jst,
+    // pore seta MealInfo er sathe time onujayi align kore nibo.
+    const { messid, messname } = req.body;
+
+    
+
+    if (!messid) {
+      return res
+        .status(404)
+        .json({ error: "Mess not found" });
+    }
+    
+    const memberId = await Member.find({
+      messid: messid,
+    });
+
+    for(const user of memberId){
+      user.messname = messname;
+
+      const mess = await user.save();
+    }
+
+
+
+    return res.json(memberId);
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
 module.exports = authRouter;
