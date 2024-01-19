@@ -3,14 +3,19 @@ const authRouter = require("./routes/auth");
 const mydatabase = require("mongoose");
 const mealRouter = require("./routes/memberNbot");
 const pushBazar = require("./routes/bazar");
+const app = express();
+//Socket stuff started-------
+const http = require("http");
+         //const cors = require("cors");
 
-const { io, chatserver, chatapp } = require("./routes/chat");
+
+//--------socket stuff finished
 
 const PORT = 3000;
 const DB = "mongodb+srv://managernafi:dmc54321@cluster0.7dvhcpm.mongodb.net/?retryWrites=true&w=majority";
 
 
-const app = express();
+
 
 
 app.use(express.json());
@@ -29,8 +34,14 @@ mydatabase.connect(DB).then(()=>{
     console.log(e);
 });
 
-io.attach(chatserver);
+
 
 const server = app.listen(PORT, ()=>{
     console.log(`Server is running  on ${PORT}`)
 });
+
+const io = require('socket.io')(server);
+io.on("connection", (socket) => {
+    console.log(`User Connected: ${socket.id}`);
+}
+);
