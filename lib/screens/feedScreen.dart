@@ -22,7 +22,7 @@ class Feed extends StatefulWidget {
 
 
 class _FeedState extends State<Feed> {
-  String messName = "Danger Zone";
+
   bool isDay = true;
   String mealTime = "Lunch";
   List<MembersMeal> meals = [];
@@ -47,6 +47,7 @@ class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
+    String messName = user.messname == "" ? "New Mess" : user.messname;
     Widget content = ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: meals!.length,

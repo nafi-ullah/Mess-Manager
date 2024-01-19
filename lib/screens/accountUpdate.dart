@@ -52,7 +52,7 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
         
         child: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
                 Padding(
@@ -64,13 +64,19 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
                 ),
 
               SizedBox(
-                height: 30,
+                height: 20,
               ),
-              const CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage('assets/images/image.png'), // Change this to your image
+              Row(
+                children: [
+                  Spacer(),
+                  const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/images/image.png'), // Change this to your image
+                  ),
+                  Spacer(),
+                ],
               ),
-             SizedBox(height: 70,),
+             SizedBox(height: 40,),
              Expanded(
                child: Container(
                  decoration: const BoxDecoration(
@@ -82,9 +88,9 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
                    padding: const EdgeInsets.all(22.0),
                    child: SingleChildScrollView(
                      child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.center,
                        children: [
-                         const  SizedBox(height: 20),
+                         const  SizedBox(height: 10),
                          InfoBox(title: "Name", data: user.name),
                          InfoBox(title: "Email", data: user.email),
                          InfoBox(title: "Password", data: "* * * * * * * *"),
