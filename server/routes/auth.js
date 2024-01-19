@@ -6,6 +6,8 @@ const { generateString, getTime } = require("../generator");
 const auth = require("../middlewares/auth");
 const axios = require("axios");
 const apiAddress = require("../constants");
+const MealInfo = require("../models/mealInfo");
+const { addDays, format } = require("date-fns");
 
 const authRouter = express.Router();
 // console.log(getTime('hour'));
@@ -15,6 +17,8 @@ const authRouter = express.Router();
 //  if(getTime('hour') > 21){
 //     console.log(" post data");
 //  }
+const currentDate = new Date();
+const formattedDate = format(currentDate, "yyyy-MM-dd");
 
 authRouter.post("/api/signup", async (req, res) => {
   const generatedMessId = generateString(6);
@@ -99,6 +103,33 @@ authRouter.post("/api/signin", async (req, res) => {
     }
 
     const token = jwt.sign({ id: memberCredential._id }, "passwordKey");
+
+
+    // during signin now i want to check if any data exist today, if not, then post
+    const todaysMeal = await MealInfo.find({ date: formattedDate });
+    if(!todaysMeal){
+      const members = await Member.find();
+      for (const user of members) {
+        let pushMeal = new MealInfo({
+          name: user.name,
+          messid: user.messid,
+          date: formattedDate, // updateeee
+          lunchMeal: "Chicken",
+          lunchCount: 1,
+          dinnerMeal: "Fish",
+          dinnerCount: "1",
+          lunchComment: "",
+          dinnerComment: "",
+        });
+        // console.log("DOneeeeeeeeee");
+    
+        pushMeal = await pushMeal.save();
+      }
+      
+    }
+
+
+
     return res.json({ token, ...memberCredential._doc });
   } catch (e) {
     return res.status(500).json({ error: e.message });
