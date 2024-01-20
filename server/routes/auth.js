@@ -34,9 +34,10 @@ authRouter.post("/api/signup", async (req, res) => {
     }
 
     const hashPass = await bcryption.hash(password, 8);
+    const memberCredential = await Member.findOne({ messid });
 
     if (messid != "noob") {
-      const memberCredential = await Member.findOne({ messid });
+      
       if (!memberCredential) {
         return res.status(400).json({ error: "This mess id is incorrect" });
       }
@@ -48,6 +49,8 @@ authRouter.post("/api/signup", async (req, res) => {
       email,
       password: hashPass,
       messid: messid == "noob" ? generatedMessId : messid,
+      messname: messid == "noob" ? "" : memberCredential.messname
+
     });
 
     //variable er data gula ekhn database a save korar palla.
