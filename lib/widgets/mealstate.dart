@@ -65,7 +65,7 @@ class MealState extends StatelessWidget {
                       height: 25.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.red,
+                        color: mealActivity == "Off" ? Colors.black : Colors.red,
                       ),
                       child: Center(
                         child: Text(
@@ -88,7 +88,7 @@ class MealState extends StatelessWidget {
           width: 60.0,
           height: 30,
           decoration: BoxDecoration(
-            color: Colors.black,
+            color:  Colors.black,
             borderRadius: BorderRadius.circular(6.0),
             border: Border.all(
               color: Colors.white, // Border color
