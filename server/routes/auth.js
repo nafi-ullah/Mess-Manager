@@ -107,10 +107,10 @@ authRouter.post("/api/signin", async (req, res) => {
 
     // during signin now i want to check if any data exist today, if not, then post
     const todaysMeal = await MealInfo.find({ date: formattedDate });
-    console.log(todaysMeal.length);
+   // console.log(todaysMeal.length);
     if(!todaysMeal.length){
       const members = await Member.find();
-      console.log(members);
+     // console.log(members);
       for (const user of members) {
         let pushMeal = new MealInfo({
           name: user.name,

@@ -45,7 +45,7 @@ class _MealTypeState extends State<MealType> {
    String memberName = "";
    String messid = "";
    String mealMenu = "Chicken";
-   int Count= 0;
+   int Count= 1;
   // MealTime mealTime = MealTime.Lunch;
    //DateTime date= DateTime(2023);
    String personalMsg= "";

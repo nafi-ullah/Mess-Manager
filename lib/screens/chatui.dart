@@ -13,9 +13,7 @@ class _ChatCommunicationState extends State<ChatCommunication> {
   TextEditingController msgInputController = TextEditingController();
   late IO.Socket socket;
 
-  void sendMessage(String msg){
 
-  }
   @override
   void initState() {
     // TODO: implement initState
@@ -27,6 +25,14 @@ class _ChatCommunicationState extends State<ChatCommunication> {
     );
     socket.connect();
     super.initState();
+  }
+  void sendMessage(String msg){
+    print(msg);
+    var messageJson= {
+      "message": msg,
+      "sentByMe": socket.id
+    };
+    socket.emit('message', messageJson);
   }
 
   @override
