@@ -15,24 +15,6 @@ class DummyHomePage extends StatefulWidget {
 
 class _DummyHomePageState extends State<DummyHomePage> {
 
-  // Initial Selected Value
-  String dropdownvalue = 'off';
-  String mealCvalue= '1';
-  final _msgController = TextEditingController();
-  // List of items in our dropdown menu
-  // var items = [
-  //   'off',
-  //   'chicken',
-  //   'fish',
-  //   'star'
-  // ];
-  @override
-  void dispose() {
-    _msgController.dispose();
-    //_msgController.clear();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,134 +52,47 @@ class _DummyHomePageState extends State<DummyHomePage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: Center(
+        child: SizedBox(
+          height: 80,
+          width: 80,
+          child: Stack(
             children: [
-              EveryOneMeal(),
-              Row(
-                children: [
-                  Text('Lunch:'),
-                  SizedBox(width: 20,),
-                  DropdownButton(
-
-                    // Initial Value
-                    value: dropdownvalue,
-
-                    // Down Arrow Icon
-                    icon: const Icon(Icons.keyboard_arrow_down),
-
-                    // Array list of items
-                    items: mealCategory.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    // After selecting the desired option,it will
-                    // change button value to selected value
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                  ),
-                  Spacer(),
-                  SizedBox(width: 10,),
-                  Text('Quantity:'),
-                  SizedBox(width: 10,),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: DropdownButton(
-
-                      // Initial Value
-                      value: mealCvalue,
-
-                      // Down Arrow Icon
-                      icon: const Icon(Icons.keyboard_arrow_down),
-
-                      // Array list of items
-                      items: mealCnt.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          mealCvalue = newValue!;
-                        });
-                      },
-                    ),
-                  ),
-
-                ],
+              Positioned(
+                top: 0,
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.grey,
+                  foregroundImage: null,
+                ),
               ),
-              Row(
-                children: [
-                  const Text('Comment'),
-                  const SizedBox(width: 8,),
-                  SizedBox(
-                    width: 200,
-                    child: TextField(
-                      controller: _msgController,
-                      //keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        //prefixText: '\$ ',
-                        label: Text('About your meal'),
+              Positioned(
+                bottom: 15,
+                right: 16,
+                child: Container(
+                  width: 25.0,
+                  height: 25.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.red,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'x2',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
                       ),
                     ),
-                  ),
-
-                ],
-              ),
-              const SizedBox(height: 8.0,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(onPressed: (){
-
-                    print(_msgController.text);
-                    print(mealCvalue);
-                    print(dropdownvalue);
-                    _msgController.clear();
-                  },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                      ),
-                      child: const Text('Update Meal',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      )),
-                ],
-              ),
-              Text('Messages:'),
-              SizedBox(
-                //flex:2,
-                height: 80,
-                child: ListView.builder(
-                  //scrollDirection: Axis.horizontal,
-                  itemCount: membersInfo.length,
-                  //itemExtent: itemWidth,
-                  itemBuilder: (ctx, index)=> Text(
-                    membersInfo[index].personalMsg,
                   ),
                 ),
               ),
-              SizedBox(height: 50,),
-              Text("Your total chicken count this month: "),
-              Text("Your total Fish count this month: "),
-              Text("Your total Star count this month: "),
+
+
             ],
           ),
         ),
-      ),
+      )
     );
   }
 }

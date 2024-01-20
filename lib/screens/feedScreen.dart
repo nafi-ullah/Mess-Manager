@@ -115,7 +115,7 @@ class _FeedState extends State<Feed> {
         meals == null ? SizedBox(
             height: 200,
             child: Loader()) : SizedBox(
-            height: 200,
+            height: 150,
             child: content),
         SizedBox(
           height: 12,

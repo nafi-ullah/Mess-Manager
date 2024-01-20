@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/dummydata/dummy%20widgets.dart';
 import 'package:mess_app/models/auth_model.dart';
 import 'package:mess_app/provider/user_provider.dart';
 import 'package:mess_app/router.dart';
@@ -56,7 +57,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: ChatCommunication()//Provider.of<UserProvider>(context, listen: false).user.token.isNotEmpty ? const MyHomePage() : const WelcomeScreen()
+      home: Provider.of<UserProvider>(context, listen: false).user.token.isNotEmpty ? const MyHomePage() : const WelcomeScreen()
     );
   }
 }
