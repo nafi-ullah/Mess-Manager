@@ -54,20 +54,35 @@ authRouter.post("/api/signup", async (req, res) => {
     member = await member.save();
     // return er agy or meal ta post korte hobe
     //-----------------------------------------------------------------------------
-    const requestBody = {
-      name: name,
-      messid: messid == "noob" ? generatedMessId : messid,
-    };
+    // const requestBody = {
+    //   name: name,
+    //   messid: messid == "noob" ? generatedMessId : messid,
+    // };
 
-    const apiUrl = `${apiAddress}/api/sign-meal`;
-    await axios
-      .post(apiUrl, requestBody)
-      .then((response) => {
-        //console.log("Response:", response.data);
-      })
-      .catch((error) => {
-        //console.error("Error:", error.message);
-      });
+    // const apiUrl = `${apiAddress}/api/sign-meal`;
+    // await axios
+    //   .post(apiUrl, requestBody)
+    //   .then((response) => {
+    //     //console.log("Response:", response.data);
+    //   })
+    //   .catch((error) => {
+    //     //console.error("Error:", error.message);
+    //   });
+    let pushMeal = new MealInfo({
+      name,
+      messid: messid == "noob" ? generatedMessId : messid,
+      date: formattedDate, // updateeee
+      lunchMeal: "Chicken",
+      lunchCount: 1,
+      dinnerMeal: "Fish",
+      dinnerCount: "1",
+      lunchComment: "",
+      dinnerComment: "",
+    });
+    // console.log("DOneeeeeeeeee");
+
+    pushMeal = await pushMeal.save();
+    console.log(pushMeal);
 
     return res.json(member);
   } catch (e) {
