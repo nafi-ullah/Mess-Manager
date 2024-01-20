@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/provider/user_provider.dart';
+import 'package:mess_app/services/auth_services.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/infoBox.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController messIdController = TextEditingController();
   TextEditingController messNameController = TextEditingController();
+  final AuthServices authService = AuthServices();
   bool isEditable = false;
   String buttonText =  "Edit Profile";
 
@@ -27,7 +29,12 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
         isEditable = true;
       });
     }
-    void UpdateProfile(){
+    void UpdateProfile(TextEditingController messName){
+      final user = Provider.of<UserProvider>(context).user;
+          authService.messNameChange(context: context,
+              messid: user.messid,
+              messname: messName.text);
+
       setState(() {
         isEditable = false;
       });
@@ -126,7 +133,11 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
                            width: 300,
                            child: ButtonWidget(textSize: 14,
                                btnText: isEditable ? "Update Profile" : "Edit Profile",
-                               onPress: isEditable? UpdateProfile : EditProfile),
+                               onPress: () {
+                                 isEditable ? UpdateProfile(messNameController)
+                                     : EditProfile();
+                               }
+    ),
                          )
                      
                      

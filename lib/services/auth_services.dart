@@ -158,5 +158,49 @@ class AuthServices{
     }
   }
 
+  void messNameChange({
+    required BuildContext context,
+    required String messid,
+    required String messname,
+  }) async {
+    try{
+      User user = User(
+          id: '',
+          name: '',
+          email: '',
+          password: '',
+          messid: messid,
+          messname: messname,
+          token: ''
+      );
+
+      http.Response res=  await http.patch(Uri.parse('$uri/api/updateMessName'),
+          body: user.toJson(),
+          headers: <String, String>{
+            'Content-Type' : 'application/json; charset=UTF-8',
+          }
+      );
+
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: (){
+            //print("Account opened");
+            showSnackBar(context, 'Mess Name Updated');
+          }
+      );
+
+
+    }catch(e){
+      print(e.toString());
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //         content: Text("Try again with right information" )));
+
+
+    }
+  }
+
 
 }
