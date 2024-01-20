@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/main.dart';
 import 'package:mess_app/provider/user_provider.dart';
+import 'package:mess_app/screens/dropdwonTest.dart';
 import 'package:mess_app/services/auth_services.dart';
 import 'package:mess_app/widgets/AuthWidgets/button_widget.dart';
 import 'package:mess_app/widgets/infoBox.dart';
@@ -30,10 +32,18 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
       });
     }
     void UpdateProfile(TextEditingController messName){
-      final user = Provider.of<UserProvider>(context).user;
+      final user = Provider.of<UserProvider>(context, listen: false).user;
           authService.messNameChange(context: context,
+              email: user.email,
               messid: user.messid,
               messname: messName.text);
+
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => MyApp()),
+            (route) => false, // Set to false to remove all previous pages
+      );
 
       setState(() {
         isEditable = false;
@@ -43,7 +53,7 @@ class _AccountUpdatePageState extends State<AccountUpdatePage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
+    final user = Provider.of<UserProvider>(context, listen: false).user;
     final double headSize = 18;
     final double boxSize = 25;
     final double boxTextFont = 16;

@@ -183,8 +183,8 @@ authRouter.patch("/api/updateMessName", async (req, res) => {
   try {
     // ekhane name messID mealMenu mealCount recieve korbo jst,
     // pore seta MealInfo er sathe time onujayi align kore nibo.
-    const { messid, messname } = req.body;
-
+    const { email, messid, messname } = req.body;
+   
     
 
     if (!messid) {
@@ -202,10 +202,12 @@ authRouter.patch("/api/updateMessName", async (req, res) => {
 
       const mess = await user.save();
     }
+    const memberCredential = await Member.findOne({ email });
+    const token = jwt.sign({ id: memberCredential._id }, "passwordKey");
 
 
 
-    return res.json(memberId);
+    return res.json({ token, ...memberCredential._doc });
   } catch (e) {
     return res.status(500).json({ error: e.message });
   }

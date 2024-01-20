@@ -160,6 +160,7 @@ class AuthServices{
 
   void messNameChange({
     required BuildContext context,
+    required String email,
     required String messid,
     required String messname,
   }) async {
@@ -167,7 +168,7 @@ class AuthServices{
       User user = User(
           id: '',
           name: '',
-          email: '',
+          email: email,
           password: '',
           messid: messid,
           messname: messname,
@@ -180,6 +181,10 @@ class AuthServices{
             'Content-Type' : 'application/json; charset=UTF-8',
           }
       );
+      print(res.body);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+      await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
 
 
       httpErrorHandle(
