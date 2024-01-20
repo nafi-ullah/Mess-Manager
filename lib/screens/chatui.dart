@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:mess_app/constants/constants.dart';
+import 'package:mess_app/models/chatController/chatController.dart';
+import 'package:mess_app/models/chatController/message.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class ChatCommunication extends StatefulWidget {
@@ -12,7 +15,7 @@ class ChatCommunication extends StatefulWidget {
 class _ChatCommunicationState extends State<ChatCommunication> {
   TextEditingController msgInputController = TextEditingController();
   late IO.Socket socket;
-
+  ChatController chatController = ChatController();
 
   @override
   void initState() {
@@ -31,7 +34,10 @@ class _ChatCommunicationState extends State<ChatCommunication> {
   void setUpSocketListener() {
       socket.on('message-recieve',(data){
         print("Hey got message: ${data}");
+        chatController.chatMessages.add(Message.fromJson(data));
       });
+
+      
   }
   void sendMessage(String msg){
     print(msg);
@@ -39,6 +45,7 @@ class _ChatCommunicationState extends State<ChatCommunication> {
       "message": msg,
       "sentByMe": socket.id
     };
+    chatController.chatMessages.add(Message.fromJson(messageJson));
     socket.emit('message', messageJson);
   }
 
@@ -51,13 +58,19 @@ class _ChatCommunicationState extends State<ChatCommunication> {
       body: Container(
         child: Column(
           children: [
-            Expanded(child: Container(
-              child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index){
-                return MessageItem(sentByMe: true);
-              }),
-            ), flex:9),
+            Expanded(flex:9, child: Container(
+              child: Obx(
+            ()=> ListView.builder(
+                    itemCount: chatController.chatMessages.length,
+                    itemBuilder: (context, index){
+                      var currentItem = chatController.chatMessages[index];
+                  return MessageItem(
+                      sentByMe: currentItem.sentByMe == socket.id,
+                      message:  currentItem.message,
+                  );
+                }),
+              ),
+            )),
             Expanded(child: Container(
               padding: EdgeInsets.all(10),
 
@@ -105,14 +118,16 @@ class _ChatCommunicationState extends State<ChatCommunication> {
 
 class MessageItem extends StatelessWidget {
   const MessageItem({super.key,
-  required this.sentByMe
+  required this.sentByMe,
+    required this.message
   });
 
   final bool sentByMe;
+  final String message;
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Hello"),
+      child: Text(message),
     );
   }
 }
