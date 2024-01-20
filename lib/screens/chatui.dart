@@ -23,8 +23,15 @@ class _ChatCommunicationState extends State<ChatCommunication> {
             .disableAutoConnect()  // disable auto-connection
             .build()
     );
+    setUpSocketListener();
     socket.connect();
     super.initState();
+  }
+
+  void setUpSocketListener() {
+      socket.on('message-recieve',(data){
+        print("Hey got message: ${data}");
+      });
   }
   void sendMessage(String msg){
     print(msg);
@@ -93,6 +100,8 @@ class _ChatCommunicationState extends State<ChatCommunication> {
     );
   }
 }
+
+
 
 class MessageItem extends StatelessWidget {
   const MessageItem({super.key,
