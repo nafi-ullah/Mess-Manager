@@ -126,8 +126,14 @@ class MessageItem extends StatelessWidget {
   final String message;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(message),
+    return Align(
+      alignment: sentByMe? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        color: sentByMe ? Colors.purple : Colors.black,
+        child: Text(message),
+      ),
     );
   }
 }
