@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/models/chatController/chatController.dart';
 import 'package:mess_app/models/chatController/message.dart';
+import 'package:mess_app/provider/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:intl/intl.dart';
 
 class ChatCommunication extends StatefulWidget {
   const ChatCommunication({super.key});
@@ -28,32 +33,60 @@ class _ChatCommunicationState extends State<ChatCommunication> {
     );
     setUpSocketListener();
     socket.connect();
+    joinedChat();
     super.initState();
   }
 
   void setUpSocketListener() {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
       socket.on('message-recieve',(data){
         print("Hey got message: ${data}");
-        chatController.chatMessages.add(Message.fromJson(data));
-      });
 
-      
+        Message getMsg = Message.fromJson(data);
+        print(getMsg.messid);
+        if(getMsg.messid == user.messid) {
+          chatController.chatMessages.add(Message.fromJson(data));
+        }
+      });
   }
+  void joinedChat(){
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+
+     var roomData = {
+        "name": user.name,
+        "messid": user.messid
+     };
+     socket.emit('join_room', roomData);
+  }
+
   void sendMessage(String msg){
-    print(msg);
+   // print(msg);
+    final user = Provider.of<UserProvider>(context, listen: false).user;
     var messageJson= {
+      "name": user.name,
+      "messid": user.messid,
       "message": msg,
-      "sentByMe": socket.id
+      "sentByMe": socket.id,
+      "time": _getCurrentTime()
     };
     chatController.chatMessages.add(Message.fromJson(messageJson));
     socket.emit('message', messageJson);
   }
 
+  String _getCurrentTime() {
+    var now = DateTime.now();
+    var formattedTime = DateFormat.jm().format(now); // AM/PM format
+    return formattedTime;
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chat App"),
+        title: Text("Addakhana"),
       ),
       body: Container(
         child: Column(
@@ -67,46 +100,54 @@ class _ChatCommunicationState extends State<ChatCommunication> {
                   return MessageItem(
                       sentByMe: currentItem.sentByMe == socket.id,
                       message:  currentItem.message,
+                      time: currentItem.time
                   );
                 }),
               ),
             )),
-            Expanded(child: Container(
-              padding: EdgeInsets.all(10),
+            Row(
+              children: [
+                Expanded(
+                    flex: 7,
+                    child: Container(
+                  padding: EdgeInsets.all(10),
 
-              child: TextField(
-                cursorColor: Colors.green,
-                controller: msgInputController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(10)
+                  child: TextField(
+                    cursorColor: Colors.green,
+                    controller: msgInputController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      // focusedBorder: OutlineInputBorder(
+                      //     borderSide: BorderSide(color: Colors.blue),
+                      //     borderRadius: BorderRadius.circular(10)
+                      // ),
+
+                    ),
                   ),
-                  // focusedBorder: OutlineInputBorder(
-                  //     borderSide: BorderSide(color: Colors.blue),
-                  //     borderRadius: BorderRadius.circular(10)
-                  // ),
-                  suffixIcon: Container(
+                )),
+                Container(
 
-                    margin: EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
+                  margin: EdgeInsets.only(right: 10),
+                  decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: IconButton(
-                      onPressed: (){
-                        sendMessage(msgInputController.text);
-                        msgInputController.text = "";
-                      },
-                      icon: Icon(Icons.send,
+                  ),
+                  child: IconButton(
+                    onPressed: (){
+                      sendMessage(msgInputController.text);
+                      msgInputController.text = "";
+                    },
+                    icon: Icon(Icons.send,
                       color: Colors.white,
-                        size: 15,
-                      ),
+                      size: 25,
                     ),
-                  )
-                ),
-              ),
-            ))
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
@@ -119,11 +160,13 @@ class _ChatCommunicationState extends State<ChatCommunication> {
 class MessageItem extends StatelessWidget {
   const MessageItem({super.key,
   required this.sentByMe,
-    required this.message
+    required this.message,
+    required this.time
   });
 
   final bool sentByMe;
   final String message;
+  final String time;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -131,8 +174,25 @@ class MessageItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        color: sentByMe ? Colors.purple : Colors.black,
-        child: Text(message),
+
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          color: sentByMe ? Colors.black : Colors.purple,
+        ),
+
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(message, style: TextStyle(
+              fontSize: 16
+            ),),
+            SizedBox(width: 8,),
+            Text(time, style: TextStyle(
+              color: Colors.white70,
+              fontSize: 10
+            ),),
+          ],
+        ),
       ),
     );
   }
