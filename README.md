@@ -59,6 +59,5 @@ Welcome to the Mess Manager! This system is designed to enhance communication, m
 ## Getting Started
 
 1. Clone the repository.
-   ```bash
-   git clone <repository-url>
+  <code> git clone https://github.com/nafi-ullah/Mess-Manager.git </code>
 
