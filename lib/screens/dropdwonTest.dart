@@ -4,6 +4,7 @@ import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/dummydata/memberdata.dart';
 import 'package:mess_app/models/members.dart';
 import 'package:mess_app/provider/user_provider.dart';
+import 'package:mess_app/screens/AuthScreens/welcome_screen.dart';
 import 'package:mess_app/screens/accountUpdate.dart';
 import 'package:mess_app/screens/bazarShow.dart';
 import 'package:mess_app/screens/chatui.dart';
@@ -74,22 +75,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: Alignment.topLeft,
                 child: Image.asset("assets/images/managerlogo.png")
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 15),
-                      child: Icon(Icons.notifications_outlined),
-                    ),
-                    Icon(
-                      Icons.search,
-                    ),
-                  ],
-                ),
-              )
+
             ],
           ),
+          actions: [
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                if (value == 'logout') {
+                  // Implement your logout logic here
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                        (route) => false, // Set to false to remove all previous pages
+                  );
+
+                }
+              },
+              itemBuilder: (BuildContext context) => [
+                PopupMenuItem<String>(
+                  value: 'logout',
+                  child: Text('Logout'),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
         bottomNavigationBar: CurvedNavigationBar(

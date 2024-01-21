@@ -14,7 +14,9 @@ class UpdateStus extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Your Data is updated"),
+            SizedBox(
+                height: 200,
+                child: Image.asset("assets/images/updategif.gif")),
             ElevatedButton(onPressed: (){
               Navigator.pushAndRemoveUntil(
                   context,
@@ -25,6 +27,7 @@ class UpdateStus extends StatelessWidget {
                       (route) => false);
 
             },
+
                 child: Text("Go back"))
           ],
         ),

@@ -81,7 +81,7 @@ class _ChatCommunicationState extends State<ChatCommunication> {
 
   @override
   Widget build(BuildContext context) {
-
+    final user = Provider.of<UserProvider>(context, listen: false).user;
 
 
     return Scaffold(
@@ -98,7 +98,8 @@ class _ChatCommunicationState extends State<ChatCommunication> {
                     itemBuilder: (context, index){
                       var currentItem = chatController.chatMessages[index];
                   return MessageItem(
-                      sentByMe: currentItem.sentByMe == socket.id,
+                      name: user.name,
+                      sentByMe: currentItem.name == user.name,
                       message:  currentItem.message,
                       time: currentItem.time
                   );
@@ -159,11 +160,13 @@ class _ChatCommunicationState extends State<ChatCommunication> {
 
 class MessageItem extends StatelessWidget {
   const MessageItem({super.key,
+    required this.name,
   required this.sentByMe,
     required this.message,
     required this.time
   });
 
+  final String name;
   final bool sentByMe;
   final String message;
   final String time;
@@ -182,10 +185,20 @@ class MessageItem extends StatelessWidget {
 
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(message, style: TextStyle(
-              fontSize: 16
-            ),),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("${name} :", style: TextStyle(
+                  fontWeight: FontWeight.bold,
+
+                ),),
+                Text(message, style: TextStyle(
+                  fontSize: 16
+                ),),
+              ],
+            ),
             SizedBox(width: 8,),
             Text(time, style: TextStyle(
               color: Colors.white70,

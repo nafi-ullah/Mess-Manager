@@ -181,7 +181,7 @@ class AuthServices{
             'Content-Type' : 'application/json; charset=UTF-8',
           }
       );
-      print(res.body);
+     // print(res.body);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       Provider.of<UserProvider>(context, listen: false).setUser(res.body);
       await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);

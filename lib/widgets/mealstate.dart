@@ -41,7 +41,7 @@ class MealState extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 10.0),
       child: SizedBox(
-        height: 150,
+        height: 120,
         width: 80,
         child: Column(
           children: [
