@@ -6,6 +6,7 @@ import 'package:mess_app/constants/constants.dart';
 import 'package:mess_app/models/chatController/chatController.dart';
 import 'package:mess_app/models/chatController/message.dart';
 import 'package:mess_app/provider/user_provider.dart';
+import 'package:mess_app/screens/communication/call_page.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:intl/intl.dart';
@@ -86,7 +87,33 @@ class _ChatCommunicationState extends State<ChatCommunication> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Addakhana"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                height: 40,
+                alignment: Alignment.topLeft,
+                child: Text("Addakhana")
+            ),
+            Container(
+              padding: const EdgeInsets.only(left: 15, right: 5, bottom: 8),
+              child: IconButton(onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CallPage(callID: 'u1u2'),
+                  ),
+                );
+
+              },
+                icon: Icon(Icons.video_call,
+                color: kPrimaryColor,
+                ),
+                iconSize: 35,
+              )
+            )
+          ],
+        ),
       ),
       body: Container(
         child: Column(

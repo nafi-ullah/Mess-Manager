@@ -102,12 +102,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
 
                   TextWidget(
-                    title: "Name",
+                    title: "Nick Name",
                     txtSize: texSize,
                     txtColor: const Color(0xffdddee3),
                   ),
                   InputTxtField(
-                    hintText: "Your Name",
+                    hintText: "Your Nick Name",
                     controller: nameController,
                     validator: null,
                     obscureText: false,
